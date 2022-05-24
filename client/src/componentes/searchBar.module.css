@@ -1,0 +1,26 @@
+.input{
+    width: 20rem;
+}
+.button{
+    color: rgb(200, 240, 140);
+    border-radius: 4px;
+    padding: 4px 1em;
+    padding-bottom: 6px;
+    border: solid 2px rgb(200, 240, 140);
+    margin-left: 5px;
+
+}
+.button:hover{
+    cursor:grab;
+}
+.padding{
+    padding:5px;
+    display: inline-block;
+}
+.search{
+    display: inline-block;
+    background-color: rgb(102, 94, 84); 
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    
+}

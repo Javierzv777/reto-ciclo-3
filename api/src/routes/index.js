@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { genres } = require('./controlers/genres');
 const { searchGenresByGame, searchGamesByGenre } = require('./controlers/searchBy');
-const { Videogame, createVideogame, updateVideogame,deleteVideogame } = require('./controlers/videogame');
+const { videogame, createVideogame, updateVideogame,deleteVideogame } = require('./controlers/videogame');
 const { videogames } = require('./controlers/videogames');
 const {platforms}=require('./controlers/platforms')
 // Importar todos los routers;
@@ -21,8 +21,8 @@ const router = Router();
 // [ ] GET /videogames?name="...":
 // Obtener un listado de las primeros 15 videojuegos que contengan la palabra ingresada como query parameter
 // Si no existe ningún videojuego mostrar un mensaje adecuado
-router.post('/videogame', Videogame)
-router.get('/videogame/:idVideogame', createVideogame)
+router.post('/videogame', createVideogame)
+router.get('/videogame/:idVideogame', videogame)
 router.delete('/videogame', deleteVideogame)
 router.put('/videogame/:idVideogame', updateVideogame)
 

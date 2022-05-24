@@ -1,0 +1,26 @@
+
+
+.generos{
+    font-size:x-large;
+    margin-left: 10px;
+}
+.juegos{
+    font-size:x-large;
+    margin-left: 10px;
+}
+.home{
+    font-size:x-large;
+    margin-left: 10px;
+    font-weight: bold;
+    
+}
+.navbar{
+    margin-top: 10px;
+    text-align: justify;
+    display: flexbox;
+    justify-content: space-between;
+}
+.searchBar{
+    position: absolute;
+    right:10px
+}
