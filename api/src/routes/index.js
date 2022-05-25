@@ -23,7 +23,7 @@ const router = Router();
 // Si no existe ningún videojuego mostrar un mensaje adecuado
 router.post('/videogame', createVideogame)
 router.get('/videogame/:idVideogame', videogame)
-router.delete('/videogame', deleteVideogame)
+router.delete('/videogame/:idVideogame', deleteVideogame)
 router.put('/videogame/:idVideogame', updateVideogame)
 
 // [ ] GET /videogame/{idVideogame}:

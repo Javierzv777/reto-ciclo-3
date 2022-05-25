@@ -1,12 +1,37 @@
 import searchBarStyle from './searchBar.module.css';
+import {useState} from 'react'
+
+
+
 
 function SearchBar(props){
+    
+    const [content,setContent] =useState({
+       data: '',
+    })
+
+    const {handleSubmit}= props
+    const handleChange= function (e){
+        setContent({
+           data:e.target.value
+        })
+     }
+    const handleOnClick=()=>{
+        handleSubmit(content)
+    }
     return  (
             
             <div className={searchBarStyle.padding}>
-                <input className={searchBarStyle.input} type="text"  placeholder='...Buscar Juegos'></input>
-                <span className={searchBarStyle.button} >Buscar</span>
-                
+                       
+                    <input className={searchBarStyle.input}
+                        onChange={e=>handleChange(e)}
+                        type="text"  placeholder={props.placeHolder}></input>
+                    <button className={searchBarStyle.button} 
+                        
+                        onClick={()=>handleOnClick()}
+                        >
+                            {props.searchButton}
+                    </button>
 
 
             </div>

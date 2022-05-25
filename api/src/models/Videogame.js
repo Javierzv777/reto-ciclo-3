@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
       defaultValue:0
 
     }
-  });
+  },{ timestamps: false });
 };
 // ID: * No puede ser un ID de un videojuego ya existente en la API rawg
 // Nombre *

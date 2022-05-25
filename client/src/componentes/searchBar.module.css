@@ -3,6 +3,7 @@
 }
 .button{
     color: rgb(200, 240, 140);
+    background-color: white;
     border-radius: 4px;
     padding: 4px 1em;
     padding-bottom: 6px;
@@ -11,12 +12,13 @@
 
 }
 .button:hover{
-    cursor:grab;
+    cursor:pointer;
 }
 .padding{
     padding:5px;
     display: inline-block;
 }
+
 .search{
     display: inline-block;
     background-color: rgb(102, 94, 84); 

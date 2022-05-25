@@ -1,8 +1,21 @@
+import {useHistory} from 'react-router-dom';
 import navbarStyle from './navbar.module.css';
 import SearchBar from './searchBar';
 import { Link } from 'react-router-dom'
+import { useDispatch} from 'react-redux';
+import { getMovies } from '../actions/actions';
+
+
 
 function Navbar(props) {
+    const dispatch=useDispatch()
+    const history=useHistory();
+
+
+    const handleSubmit=function(gameName){
+         dispatch(getMovies(gameName))
+         history.push("/videogames")
+     }
     return (
         <div className={navbarStyle.navbar}>
             <Link to='/Home' style={{ textDecoration: 'none', color:'black' }}>
@@ -21,7 +34,10 @@ function Navbar(props) {
                 </span>
             </Link>
             <span className={navbarStyle.searchBar}>
-                < SearchBar />
+                < SearchBar 
+                handleSubmit={handleSubmit}
+                searchButton={'Buscar'} 
+                placeHolder={'...Buscar Juegos'}/>
             </span>
             
         </div>
