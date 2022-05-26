@@ -3,7 +3,7 @@ import navbarStyle from './navbar.module.css';
 import SearchBar from './searchBar';
 import { Link } from 'react-router-dom'
 import { useDispatch} from 'react-redux';
-import { getMovies } from '../actions/actions';
+import { getGames } from '../actions/actions';
 
 
 
@@ -13,7 +13,7 @@ function Navbar(props) {
 
 
     const handleSubmit=function(gameName){
-         dispatch(getMovies(gameName))
+         dispatch(getGames(gameName))
          history.push("/videogames")
      }
     return (

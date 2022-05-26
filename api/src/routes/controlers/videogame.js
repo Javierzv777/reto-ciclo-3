@@ -21,26 +21,29 @@ async function videogame(req, res) {// devuelve un videojuego con el id pasado p
                         description:e.description,
                         released: e.released,
                         rating: e.rating,
-                        Platforms: e.platforms.map(e => { return { id: e.platform.id, name: e.platform.name } }),
-                        Genres: e.genres.map(e => { return { id: e.id, name: e.name } })
+                        platforms: e.platforms.map(e => { return { id: e.platform.id, name: e.platform.name } }),
+                        genres: e.genres.map(e => { return { id: e.id, name: e.name } })
                     }
                 })
             ,
             Videogame.findAll({
                 where: { id: idVideogame },
                 include: [
+                    
                     {
                         model: Platform,
-                        through: { atributes: [] }
+                        through: { atributes: [] },
+                        as:'platforms'
                     },
                     {
-                        model: Genre,
-                        through: { atributes: [] }
+                        model: Genre, 
+                        through: { atributes: [] },
+                        as: 'genres'
                     },
                 ]
             })
                 .then((response) => {
-                    return response
+                    return response[0]
                 })
         ])
             .then(element => {
@@ -58,16 +61,20 @@ async function videogame(req, res) {// devuelve un videojuego con el id pasado p
 
 //metodo post---crea un videojuego---
 async function createVideogame(req, res) {
-    const { name, description, released, genres, platforms, } = req.body
+    const { name, image, description, released, genres, platforms,rating } = req.body
     const [gameCreated, created] = await Videogame.findOrCreate({//crea el juego
         where: { name },// devuelve el juego si ya existe y created sigue en "false"
         defaults: {//crea el juego si no existe y created pasa a "true"
-            name, description, released
+            name,
+            description,
+            [released&&`released`]:released?released:undefined,
+            [image&&`image`]:image?image:undefined,
+            [rating&&`rating`]:rating?rating:undefined,
         }
     }).catch(e => res.status(404).send(e.message));
     if (created === false) return res.status(404).send(`el videojuego ${name} ya existe`)
 
-    if (platforms.length > 0) {//rectifico si el argumento que recibí como platforms en un arreglo 
+    if (platforms&&platforms.length > 0) {//rectifico si el argumento que recibí como platforms en un arreglo 
         //con elementos
         Promise.all(
             platforms.map((e) => {
@@ -100,7 +107,7 @@ async function createVideogame(req, res) {
             })
         })
         .catch(e => res.status(404).send(e.message))
-    res.status(201).send(`el juego "${name}, con id ${gameCreated.id} fué creado correctamente"`)
+    res.status(201).send({name:name, id: gameCreated.id})
 
 }
 // delete------elimina un videojuego por id---------------
@@ -116,7 +123,7 @@ function deleteVideogame(req, res) {
                 id:idVideogame
             }
         })
-        .then(()=>res.send(`el videojuego con el id ${idVideogame} fue eliminado correctamente`))
+        .then(()=>res.send({gameDeleted:idVideogame}))
         .catch(()=>res.status(404).send('no se pudo eliminar el juego'))
     }
 }
@@ -133,7 +140,7 @@ async function updateVideogame(req, res) {
       });
 
      
-      if(platforms.length){
+      if(platforms&&platforms.length){
           await game.setPlatforms([])//reinicio las relaciones
           await Promise.all(
             platforms.map((e) => {
@@ -153,7 +160,7 @@ async function updateVideogame(req, res) {
 
                 }).catch(e => res.status(404).send(e.message))
       }
-      if(genres.length){
+      if(genres&&genres.length){
         await game.setGenres([])//reinicio las relaciones
         await Promise.all(
           genres.map((e) => {

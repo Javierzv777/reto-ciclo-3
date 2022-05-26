@@ -28,6 +28,10 @@ module.exports = (sequelize) => {
       validate:{max:5},
       defaultValue:0
 
+    },
+    image: {
+      type:DataTypes.TEXT,
+      defaultValue:"https://images.pexels.com/photos/275033/pexels-photo-275033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     }
   },{ timestamps: false });
 };

@@ -12,7 +12,7 @@ async function videogames(req,res){
             Videogame.findAll().catch(e=> res.status(404).send(e.message)),
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`).then(response=>response.data.results).catch(e=> res.status(404).send(e.message))
         ],()=>{})
-        .then(arrQuery=> arrQuery.forEach(e=> e.forEach(e=>query.push({image:e.background_image,name:e.name, id: e.id}))))
+        .then(arrQuery=> arrQuery.forEach(e=> e.forEach(e=>query.push({image:e.background_image||e.image,name:e.name, id: e.id}))))
         .then(()=> res.send(query)).catch(e=> res.status(404).send(e.message))
     }
     if(name){//busqueda con el argumento '?name=""'

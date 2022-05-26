@@ -1,32 +1,34 @@
 import axios from 'axios';
-export const CREATE_MOVIE='CREATE_MOVIE'
-export const UPDATE_MOVIE='UPDATE_MOVIE'
-export const GET_MOVIES='GET_MOVIES'
-export const GET_MOVIE='GET_MOVIE'
+export const CREATE_GAME='CREATE_GAME'
+export const UPDATE_GAME='UPDATE_GAME'
+export const GET_GAMES='GET_GAMES'
+export const GET_GAME='GET_GAME'
+export const ADD_GAME='ADD_GAME'
+export const REMOVE_GAME='REMOVE_GAME'
 
 
-export function createMovie(payload){
+export function createGame(payload){
     return{
-        type: CREATE_MOVIE,
+        type: CREATE_GAME,
         payload
     }
 }
 
-export function updateMovie(payload){
+export function updateGame(payload){
     return{
-        type: UPDATE_MOVIE,
+        type: UPDATE_GAME,
         payload
     }
 }
 
-export  function getMovies(payload){
+export  function getGames(payload){
  
     if(!payload.data){
         return async function(dispatch){
 
             return axios.get('http://localhost:3001/videogames')
             .then((response)=>{
-                dispatch({ type: GET_MOVIES, payload: response.data });
+                dispatch({ type: GET_GAMES, payload: response.data });
             })
             .catch(e=>console.log(e));
         }
@@ -34,26 +36,59 @@ export  function getMovies(payload){
         return async function(dispatch){
             return axios.get(`http://localhost:3001/videogames/?name=${payload.data}`)
             .then((response)=>{
-                dispatch({ type: GET_MOVIES, payload: response.data });
+                dispatch({ type: GET_GAMES, payload: response.data });
             })
             .catch(e=>console.log(e));
         }
 
 
 }
-export function getMovie(m){
+export function getGame(m){
     if(m){
         return async function(dispatch){
         
             return axios.get(`http://localhost:3001/videogame/${m}`)
                 .then((response)=>{
-                    dispatch({ type: GET_MOVIE, payload: response.data.element });
+                    dispatch({ type: GET_GAME, payload: response.data.element });
                 
                 })
                 .catch(e=>console.log(e));
         }
     }
     return {
-        type: GET_MOVIE, payload:m
+        type: GET_GAME, payload:m
+    }
+}
+export function saveGame(id,i){
+    return async function(dispatch){
+        
+        return axios.get(`http://localhost:3001/videogame/${id}`)
+            .then((response)=>{
+                const {name, description, released, image,rating,platforms,genres}=response.data.element
+                axios.post('http://localhost:3001/videogame', {
+                    name, description, released, image,rating,platforms,genres
+                  }).then(response=> {
+                      console.log(response.data.id)
+                    //   dispatch({type:SAVE_GAME, payload:response.data.name})
+                      axios.get(`http://localhost:3001/videogame/${response.data.id}`)
+                      .then((response)=>{
+                        console.log(response.data)
+                        const {id,name, image}=response.data.element
+                        dispatch({type:ADD_GAME, payload:{id,name,image,i}})
+                      })
+                  });
+            })
+            .catch(e=>console.log(e));
+    }
+}
+
+export function deleteGame(id,name){
+    return async function(dispatch){
+        return axios.delete(`http://localhost:3001/videogame/${id}`)
+        .then((e)=>{
+            console.log(e)
+            dispatch({type:REMOVE_GAME, payload:e.data.gameDeleted})
+        } 
+        )
     }
 }

@@ -1,13 +1,13 @@
-import GamesStyle from './showGames.module.css';
+import myGamesStyle from './myGames.module.css';
 import {connect} from 'react-redux'
-import {getGame,saveGame,deleteGame} from '../actions/actions'
+import {getGame, deleteGame, saveGame} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
+// import SearchBar from './searchBar';
+// import { Dispatch } from 'react';
 
+function MyGames(props) {
 
-
-function ShowGames(props) {
-
-const history=useHistory()
+ const history=useHistory()
 
   const handleOnClick=(id)=>{
     props.getGame(id)
@@ -19,21 +19,21 @@ const history=useHistory()
   const handleSave=(id,i)=>{
     props.saveGame(id,i)
   }
-
-   
     return (
-        <div className={GamesStyle.games}>
-            {props.games[0]&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
-            <div className={GamesStyle.container}>
+
+        
+        <div className={myGamesStyle.games}>
+            {props.games[0]&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
+            <div className={myGamesStyle.container}>
             {props.games.map((e,i)=>{
-                return(!props.saved.includes(e.name)||e.id.length) &&(
+                return(e.id.length) &&(
                     <div key={i}>
-                      <div className={GamesStyle.card} 
+                      <div className={myGamesStyle.card} 
                         onClick={()=>handleOnClick(e.id)}>
-                        <div className={GamesStyle.subtitle}>
+                        <div className={myGamesStyle.subtitle}>
                           <span>{e.name}</span>
                         </div>
-                        <img className={GamesStyle.image} src={e.image} alt={e.name}>
+                        <img className={myGamesStyle.image} src={e.image} alt={e.name}>
                         </img>
                         <span>{e.description}</span>
                       </div>
@@ -50,7 +50,7 @@ const history=useHistory()
                 )
             })}
             </div>
-        </div>
+        </div>      
     )
 
 }
@@ -71,4 +71,4 @@ export function mapStateToProps(state) {
     };
   }
   
-  export default connect(mapStateToProps,mapDispatchToProps)(ShowGames)
+  export default connect(mapStateToProps,mapDispatchToProps)(MyGames)

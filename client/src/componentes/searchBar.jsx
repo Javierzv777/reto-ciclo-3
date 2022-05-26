@@ -27,7 +27,6 @@ function SearchBar(props){
                         onChange={e=>handleChange(e)}
                         type="text"  placeholder={props.placeHolder}></input>
                     <button className={searchBarStyle.button} 
-                        
                         onClick={()=>handleOnClick()}
                         >
                             {props.searchButton}

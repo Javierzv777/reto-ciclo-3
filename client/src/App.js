@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './componentes/home'
-import Games from './componentes/games'
+import MyGames from './componentes/myGames'
 import Navbar from './componentes/navbar'
 import {Switch,Route} from 'react-router-dom'
 import ShowGame from './componentes/showGame';
@@ -23,7 +23,7 @@ function App() {
                 <ShowGames/>
               </Route>
               <Route exact path='/videogame'>
-                <Games/>
+                <MyGames/>
               </Route>
               <Route path='/genres'>
               </Route>
