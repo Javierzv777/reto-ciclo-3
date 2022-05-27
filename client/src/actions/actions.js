@@ -86,7 +86,6 @@ export function deleteGame(id,name){
     return async function(dispatch){
         return axios.delete(`http://localhost:3001/videogame/${id}`)
         .then((e)=>{
-            console.log(e)
             dispatch({type:REMOVE_GAME, payload:e.data.gameDeleted})
         } 
         )

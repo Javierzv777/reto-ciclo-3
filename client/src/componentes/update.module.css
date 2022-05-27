@@ -1,0 +1,43 @@
+.input{
+    width: 100%;
+}
+.submit{
+    position: absolute;
+    display:inline-block;
+    right:0;
+    
+}
+.textarea{
+    background-color: #1e1e1e;
+    color: #ffff66;
+    padding-top: 1.2em;
+    margin-right: 0;
+    width: 100%;
+    
+}
+.tagDescription{
+   
+    right: 1.2em;
+    /* stay away from scrollbar*/
+    position: absolute;
+    color: gray;
+}
+.description{
+     position: relative;
+  /* be reference for positionning clidren*/
+  
+}
+.inputPlatforms{
+    display: inline-block;
+    float:left;
+}
+.inputGenres{
+    display: inline-block;
+}
+.container{
+    margin-top: 3rem;
+    clear:both;
+    text-align: left;
+    width: 100%;
+    
+}

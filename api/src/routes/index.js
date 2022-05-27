@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { genres } = require('./controlers/genres');
+const { genres, genresGames } = require('./controlers/genres');
 const { searchGenresByGame, searchGamesByGenre } = require('./controlers/searchBy');
 const { videogame, createVideogame, updateVideogame,deleteVideogame } = require('./controlers/videogame');
 const { videogames } = require('./controlers/videogames');
-const {platforms}=require('./controlers/platforms')
+const {platforms,platformsGames}=require('./controlers/platforms')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -32,9 +32,10 @@ router.put('/videogame/:idVideogame', updateVideogame)
 // Incluir los géneros asociados
 
 router.get('/genres', genres)
-
+router.get('/genres/:id', genresGames)
 
 router.get('/platforms', platforms)
+router.get('/platforms/:id', platformsGames)
 
 
 

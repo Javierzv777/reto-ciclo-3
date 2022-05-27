@@ -35,9 +35,10 @@ function Navbar(props) {
             </Link>
             <span className={navbarStyle.searchBar}>
                 < SearchBar 
-                handleSubmit={handleSubmit}
-                searchButton={'Buscar'} 
-                placeHolder={'...Buscar Juegos'}/>
+                    handleSubmit={handleSubmit}
+                    searchButton={'Buscar'} 
+                    placeHolder={'...Buscar Juegos en la api'}
+                />
             </span>
             
         </div>

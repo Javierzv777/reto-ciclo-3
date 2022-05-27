@@ -2,13 +2,14 @@ import GamesStyle from './showGames.module.css';
 import {connect} from 'react-redux'
 import {getGame,saveGame,deleteGame} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
-
+import {useState} from 'react'
 
 
 function ShowGames(props) {
 
-const history=useHistory()
 
+const history=useHistory()
+  // const [show, setShow]=useState({showGames:[...props.]})
   const handleOnClick=(id)=>{
     props.getGame(id)
     history.push("/videogame/detail")

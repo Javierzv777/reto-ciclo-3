@@ -5,6 +5,7 @@ import Navbar from './componentes/navbar'
 import {Switch,Route} from 'react-router-dom'
 import ShowGame from './componentes/showGame';
 import ShowGames from './componentes/showGames';
+import Update from './componentes/update';
 
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
               </Route>
               <Route exact path='/videogame/detail'>
                 <ShowGame/>
+              </Route>
+              <Route exact path='/videogame/update'>
+                <Update/>
               </Route>
               <Route path='/videogames'>
                 <ShowGames/>
