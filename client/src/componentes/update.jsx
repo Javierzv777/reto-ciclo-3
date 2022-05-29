@@ -1,25 +1,13 @@
 
 import updateStyle from './update.module.css';
-// import {useState} from 'react';
 import { updateDetails,getGame,getCacheGame,updateGame} from '../actions/actions';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom'
 
-// this.dato3.push({value:''})
-// this.dato3.splice(ind-1,1);
 
 
 function Update(props){
-    // const [content,setContent] =useState({
-    //     name: props.game&&props.game.name,
-    //     image:props.game&&props.game.image,
-    //     description:'',
-    //     platformsInput:[],
-    //     genresInput:[],
-    //     platforms:[{value:''}],
-    //     genres:[{value:''}]
 
-    //  })
     let history=useHistory()
     function handleUpdate(){
         props.updateGame(props.game,props.game.id)
