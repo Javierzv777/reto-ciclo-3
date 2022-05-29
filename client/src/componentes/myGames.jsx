@@ -1,14 +1,20 @@
 import myGamesStyle from './myGames.module.css';
 import {connect} from 'react-redux'
-import {getGame, deleteGame, saveGame,getGames} from '../actions/actions'
+import {getGame, deleteGame, saveGame,getGames, clearList} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import SearchBar from './searchBar';
 
 
 
-function MyGames(props) {
 
- const history=useHistory()
+
+function MyGames(props) {
+  let flag=false;
+  
+    flag=((props.saved.length^props.flag)&&props.games.length) 
+  
+ 
+ let history=useHistory()
 
   const handleOnClick=(id)=>{
     props.getGame(id)
@@ -18,7 +24,7 @@ function MyGames(props) {
     props.deleteGame(id)
   }
   const handleUpdate=(id)=>{
-
+    props.getGame(id)
     history.push("/videogame/Update")
   }
   const handleSubmit=function(gameName){
@@ -38,19 +44,22 @@ function MyGames(props) {
 
 
           <div className={myGamesStyle.games}>
-              {props.saved.length>0&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
+              {props.platform&&(<div className={myGamesStyle.title}>{props.platform}</div>)}
+              {props.genre&&(<div className={myGamesStyle.title}>{props.genre}</div>)}
+              {!props.genre&&!props.platform&&flag!==0&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
               <div className={myGamesStyle.containerCards}>
               {props.games.map((e,i)=>{
                   return(e.id.length) &&(
                       <div key={i}>
                         <div className={myGamesStyle.card} 
-                          onClick={()=>handleOnClick(e.id)}>
+                          >
                           <div className={myGamesStyle.subtitle}>
                             <span>{e.name}</span>
                           </div>
-                          <img className={myGamesStyle.image} src={e.image} alt={e.name}>
+                          <img onClick={()=>handleOnClick(e.id)}
+                          className={myGamesStyle.image} src={e.image} alt={e.name}>
                           </img>
-                          <span>{e.description}</span>
+                         
                         </div>
                         <div>
                           {e.id&&e.id.length&&(
@@ -82,7 +91,10 @@ export function mapStateToProps(state) {
     return {
       games: state.games,
       game: state.game,
-      saved: state.savedGames
+      saved: state.savedGames,
+      flag:state.flag,
+      platform:state.platform,
+      genre:state.genre
     };
   }
   
@@ -91,7 +103,8 @@ export function mapStateToProps(state) {
       deleteGame:(id)=>dispatch(deleteGame(id)),
       getGame: (m) =>dispatch(getGame(m)),
       saveGame: (id)=>dispatch(saveGame(id)),
-      getGames: (id)=>dispatch(getGames(id))
+      getGames: (id)=>dispatch(getGames(id)),
+      clearList: ()=> dispatch(clearList())
     };
   }
   

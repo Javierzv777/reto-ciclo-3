@@ -34,7 +34,7 @@
     border-radius: 10px;
     position:relative;
 }
-.card:hover{
+.image:hover{
     cursor:pointer;
 }
 .container{
@@ -44,6 +44,6 @@
     flex-direction: row;
     min-width: inherit;
     justify-content: space-around;
-    
+    margin-bottom: 5rem;
     
 }

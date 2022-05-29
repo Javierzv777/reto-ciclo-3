@@ -73,11 +73,11 @@ async function createVideogame(req, res) {
         }
     }).catch(e => res.status(404).send(e.message));
     if (created === false) return res.status(404).send(`el videojuego ${name} ya existe`)
-
-    if (platforms&&platforms.length > 0) {//rectifico si el argumento que recibí como platforms en un arreglo 
+    const platformsCreate=platforms.filter(e=>e.name!=='')
+    if (platformsCreate&&platformsCreate.length > 0) {//rectifico si el argumento que recibí como platforms en un arreglo 
         //con elementos
         Promise.all(
-            platforms.map((e) => {
+            platformsCreate.map((e) => {
                 return Platform.findOrCreate({ //creo las plataformas si no existen
                     where: { name: e.name },
                     defaults: { name: e.name }
@@ -127,7 +127,7 @@ function deleteVideogame(req, res) {
         .catch(()=>res.status(404).send('no se pudo eliminar el juego'))
     }
 }
-
+//----updade----put
 async function updateVideogame(req, res) {
     const {idVideogame}=req.params
     const {genres, platforms, name, description, rating, released}=req.body
@@ -136,14 +136,15 @@ async function updateVideogame(req, res) {
     await game.set({
         name: name?name:game.name,
         description: description?description:game.description,
-        rating: rating?rating:game.rating
+        rating: rating?rating:game.rating,
+        released: released?released:game.released
       });
-
+      let platformsUpdate=platforms.filter(e=>e.name!=='')
      
-      if(platforms&&platforms.length){
+      if(platformsUpdate&&platformsUpdate.length){
           await game.setPlatforms([])//reinicio las relaciones
           await Promise.all(
-            platforms.map((e) => {
+            platformsUpdate.map((e) => {
                 return Platform.findOrCreate({ //creo las plataformas si no existen
                     where: { name: e.name },
                     defaults: { name: e.name }
@@ -160,10 +161,11 @@ async function updateVideogame(req, res) {
 
                 }).catch(e => res.status(404).send(e.message))
       }
-      if(genres&&genres.length){
+      let genresUpdate=genres.filter(e=>e.name!=='')
+      if(genresUpdate&&genresUpdate.length){
         await game.setGenres([])//reinicio las relaciones
         await Promise.all(
-          genres.map((e) => {
+          genresUpdate.map((e) => {
               return Genre.findOrCreate({ //creo las plataformas si no existen
                   where: { name: e.name },
                   defaults: { name: e.name }

@@ -1,10 +1,14 @@
 
 
-.generos{
+.platforms{
     font-size:x-large;
     margin-left: 10px;
 }
-.juegos{
+.genres{
+    font-size:x-large;
+    margin-left: 10px;
+}
+.games{
     font-size:x-large;
     margin-left: 10px;
 }

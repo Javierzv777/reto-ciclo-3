@@ -1,10 +1,10 @@
-const axios=require('axios')
+
 const {Videogame, Platform}=require('./../../db')
 
  function platforms(req,res){
     
       
-        Platforms.findAll()
+        Platform.findAll()
         .then(response=> res.send(response))
         .catch(e=> console.log(e.message))
    
