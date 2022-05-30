@@ -118,6 +118,7 @@ function Update(props){
                     <span className={updateStyle.submit} >
                         <div>
                             <button 
+                                 className={updateStyle.button}
                                 onClick={()=>handleUpdate()}
                                 >
                                 Actualizar
@@ -125,6 +126,7 @@ function Update(props){
                         </div>
                         <div>
                             <button 
+                                className={updateStyle.button}
                                 onClick={()=>handleCancel()}
                                 >
                                 Cancelar

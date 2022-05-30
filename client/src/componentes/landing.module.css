@@ -6,6 +6,7 @@
     border-radius: 5px;
     margin-top:3rem;
     display: inline-block;
+    border: solid 1px brown;
 
 }
 .button:hover{

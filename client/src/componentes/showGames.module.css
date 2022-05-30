@@ -30,6 +30,7 @@
 .title{
     font-size: larger;
     font-weight: 600;
+    text-align: center;
 }
 
 .games{
@@ -68,6 +69,6 @@
     min-width: inherit;
     justify-content: space-around;
     margin-bottom: 5rem;
-    font-size: calc(10px + 2vmin);
+    /* font-size: calc(10px + 2vmin); */
     
 }

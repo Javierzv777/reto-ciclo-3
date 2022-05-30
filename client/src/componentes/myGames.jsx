@@ -63,10 +63,12 @@ function MyGames(props) {
                         <div>
                           {e.id&&e.id.length&&(
                           <div>
-                            <button onClick={()=> handleDelete(e.id,e.name)}>
+                            <button onClick={()=> handleDelete(e.id,e.name)}
+                            className={myGamesStyle.button}>
                               Eliminar
                             </button>
-                            <button onClick={()=> handleUpdate(e.id,e.name)}>
+                            <button onClick={()=> handleUpdate(e.id,e.name)}
+                            className={myGamesStyle.buttonRight}>
                               Editar
                             </button>
 
