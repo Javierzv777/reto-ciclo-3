@@ -54,4 +54,6 @@
 .container{
     margin-top: 3rem;
     margin-bottom: 5rem;
+    color:black;
+    font-size: calc(10px + 2vmin);
 }

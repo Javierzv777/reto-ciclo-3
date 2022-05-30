@@ -1,5 +1,5 @@
 
-import createStyle from './update.module.css';
+import createStyle from './createGame.module.css';
 import {useState} from 'react';
 import { createGame } from '../actions/actions';
 import {connect} from 'react-redux';

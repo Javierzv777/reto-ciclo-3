@@ -15,21 +15,11 @@ function Genres(props) {
 
 
 
-//   const handleOnClick=(id)=>{
-//     props.getGame(id)
-//     history.push("/videogame/detail")
-//   }
-//   const handleDelete=(id,name)=>{
-//     props.deleteGame(id)
-//   }
-//   const handleSave=(id)=>{
-//     props.saveGame(id)
-//   }
 
    
     return (
-        <div className={GenresStyle.container}>
-            {props.genres&&<div>Buscar Juegos por género</div>}
+        <div >
+            {props.genres&&<div className={GenresStyle.container}>Buscar Juegos por género</div>}
             
            {
              props.genres&&props.genres.map((e)=>{

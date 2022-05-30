@@ -59,7 +59,6 @@ function MyGames(props) {
                           <img onClick={()=>handleOnClick(e.id)}
                           className={myGamesStyle.image} src={e.image} alt={e.name}>
                           </img>
-                         
                         </div>
                         <div>
                           {e.id&&e.id.length&&(

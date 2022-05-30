@@ -13,33 +13,35 @@ import logo from './videogame.png'
 
 function App() {
   return (
-    <div className="App">
-      <Landing/>
-      <h1>Henry Videogames</h1>
-      <Navbar/>
-      <Flag/>
-          <Switch>
-              <Route path='/home'>
-                <Home></Home>
-              </Route>
-              <Route  path='/videogame/'>
-                <NavbarGames/>
-              </Route>
-              <Route exact path='/videogame/detail'>
-                <ShowGame/>
-              </Route>
-              <Route path='/videogames'>
-                <ShowGames/>
-              </Route>
-              <Route path='/genres'>
-                <Genres/>
-              </Route>
-              <Route path='/platforms'>
-                <Platforms/>
-              </Route>
+    <div class="container">  
+      <div className="App">
+        <Landing/>
+        <h1 class='App-header'>Henry Videogames</h1>
+        <Navbar/>
+        <Flag/>
+            <Switch>
+                <Route path='/home'>
+                  <Home></Home>
+                </Route>
+                <Route  path='/videogame/'>
+                  <NavbarGames/>
+                </Route>
+                <Route exact path='/videogame/detail'>
+                  <ShowGame/>
+                </Route>
+                <Route path='/videogames'>
+                  <ShowGames/>
+                </Route>
+                <Route path='/genres'>
+                  <Genres/>
+                </Route>
+                <Route path='/platforms'>
+                  <Platforms/>
+                </Route>
 
-          </Switch>
-      
+            </Switch>
+        
+      </div>
     </div>
   );
 }

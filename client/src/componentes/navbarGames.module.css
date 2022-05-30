@@ -2,5 +2,7 @@
     margin-left: 1em;
 }
 .container{
-    clear:both
+    clear:both;
+    font-size:x-large;
+    font-weight: bold;
 }

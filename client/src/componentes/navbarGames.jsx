@@ -10,12 +10,21 @@ import CreateGame from './createGame';
 function NavbarGames(props){
     return (
             <div className={navGamesStyle.container}>
-                <NavLink to='/videogame/myGames' >
+                <NavLink to='/videogame/myGames' 
+                activeStyle={{
+                    fontWeight: "bold",
+                    color: "red"
+                  }}>
                     <span className={navGamesStyle.link}>
                         Mis juegos
                     </span>
                 </NavLink>
-                <NavLink to='/videogame/create' >
+                <NavLink 
+                to='/videogame/create' 
+                activeStyle={{
+                    fontWeight: "bold",
+                    color: "red"
+                  }}>
                     <span className={navGamesStyle.link}>
                         Crear Juego
                     </span>
@@ -25,8 +34,12 @@ function NavbarGames(props){
                     className={isActive =>
                         "nav-link" + (!isActive ? " unselected" : "")
                     }
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "red"
+                      }}
                     >
-                    
+               
                 </NavLink>
                 <Route exact path='/videogame/myGames'>
                     <MyGames/>

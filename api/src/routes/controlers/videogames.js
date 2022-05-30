@@ -2,6 +2,7 @@ const axios=require('axios')
 const {Promise}=require('bluebird')
 const {API_KEY}=require('../../db.js')
 const {Videogame}=require('./../../db')
+const {Op}=require('sequelize')
 
 
 async function videogames(req,res){
@@ -14,9 +15,6 @@ async function videogames(req,res){
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`).then(response=>response.data.results).catch(e=> res.status(404).send(e.message))
         ],()=>{})
         .then(arrQuery=> {arrQuery.forEach(e=> e.forEach(e=>{
-            // let image=''
-            // e.background_image&&(image=e.background_image)
-            // e.image&&(image=e.image)
             query.push({image:e.background_image||e.image,name:e.name, id: e.id})
             if(e.id.length)list.push(e.name)
         }))
@@ -29,7 +27,7 @@ async function videogames(req,res){
         let query=[]
        
         Promise.each([
-            Videogame.findAll({where:{name:name}})
+            Videogame.findAll({where:{name:{[Op.iLike]: `%${name}%`}}})
             .then(response=>{
                 const newResponse=response.map(e=>e.dataValues)
                 return newResponse

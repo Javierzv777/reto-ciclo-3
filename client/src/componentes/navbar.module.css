@@ -3,14 +3,17 @@
 .platforms{
     font-size:x-large;
     margin-left: 10px;
+    font-weight: bold;
 }
 .genres{
     font-size:x-large;
     margin-left: 10px;
+    font-weight: bold;
 }
 .games{
     font-size:x-large;
     margin-left: 10px;
+    font-weight: bold;
 }
 .home{
     font-size:x-large;
@@ -19,10 +22,17 @@
     
 }
 .navbar{
+    margin-left:10px;
+    margin-right:10px;
     margin-top: 10px;
     text-align: justify;
-    display: flexbox;
-    justify-content: space-between;
+    display: flex;
+    clear:both;
+    flex-wrap: wrap;
+    height: min-content;
+    font-size: calc(10px + 2vmin);
+    flex-direction: row;
+    justify-content: space-around;
 }
 .searchBar{
     float:right;
@@ -30,6 +40,8 @@
 }
 @media screen and (max-width: 1000px) {
     .searchBar{
-        float:left; 
+      
+        float:left;
+        
     }
 }

@@ -6,7 +6,7 @@ import homeStyle from './home.module.css';
 function Home(props){
 
     return (
-            <div className={homeStyle.margin}>
+            <div className={homeStyle.container}>
 
                 <h1 className={homeStyle.title}>Descripción</h1>
                 <p className={homeStyle.paragraph}>

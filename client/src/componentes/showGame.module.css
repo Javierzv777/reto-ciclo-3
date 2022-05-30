@@ -21,15 +21,24 @@
     object-fit: cover;
     
 }
+
 .card{
     float: right;
-    width:30% ;
+    width:15rem ;
     height: 18rem;
     margin-left: 3rem;
+}
+@media screen and(max-width: 600px){
+   .card{
+    width: 100%; 
+   }  
 }
 .game{
     margin-top: 5rem;
     width: inherit;
+    margin-bottom: 3rem;
+    margin-left: 20px;
+    margin-right: 20px;
    
 }
 .title{

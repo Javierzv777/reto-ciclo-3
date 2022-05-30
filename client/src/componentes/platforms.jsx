@@ -13,27 +13,14 @@ function Platforms(props) {
 
 
 
-//   const handleOnClick=(id)=>{
-//     props.getGame(id)
-//     history.push("/videogame/detail")
-//   }
-//   const handleDelete=(id,name)=>{
-//     props.deleteGame(id)
-//   }
-//   const handleSave=(id)=>{
-//     props.saveGame(id)
-//   }
 
    
     return (
-        <div className={PlatformsStyle.container}>
-            {props.platforms&&<div>Buscar juegos por plataformas</div>}
+        <div >
+            {props.platforms&&<div className={PlatformsStyle.container}>Buscar juegos por plataformas</div>}
             
            {
-             props.platforms&&props.platforms.map((e)=>{
-                 
-
-                 
+             props.platforms&&props.platforms.map((e)=>{    
                  return(
                     <div key={e.id}>
                         <Link onClick={()=>props.getPlatforms(e.id,e.name)}

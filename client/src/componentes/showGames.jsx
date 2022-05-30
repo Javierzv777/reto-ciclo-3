@@ -29,7 +29,8 @@ function ShowGames(props) {
             <div className={GamesStyle.container}>
             {props.games.map((e,i)=>{
                 return(!props.saved.includes(e.name)) &&(
-                    <div key={i}>
+                    <div className={GamesStyle.cardContainer}
+                    key={i}>
                       <div className={GamesStyle.card} 
                         >
                         <div className={GamesStyle.subtitle}>
@@ -37,19 +38,18 @@ function ShowGames(props) {
                         </div>
                         <img onClick={()=>handleOnClick(e.id)}
                         className={GamesStyle.image} src={e.image} alt={e.name}>
-                        </img>
-                       
+                        </img>   
                       </div>
                       <div>
                         {e.id&&e.id.length&&(<button onClick={()=> handleDelete(e.id,e.name)}>
                           Eliminar
                         </button>)}
-                        {e.id&&!e.id.length&&(<button onClick={()=> handleSave(e.id,i)}>
+                        {e.id&&!e.id.length&&(<button onClick={()=> handleSave(e.id,i)}
+                        className={GamesStyle.button}>
                           Guardar
                         </button>)}
-                      </div>
-                      
-                    </div>
+                      </div> 
+                  </div>
                 )
             })}
             </div>
