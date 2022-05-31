@@ -3,10 +3,19 @@ import updateStyle from './update.module.css';
 import { updateDetails,getGame,getCacheGame,updateGame} from '../actions/actions';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom'
-
+import {useState} from 'react'
+import { validate } from './validate';
 
 
 function Update(props){
+
+    const [alert, setAlert]=useState({
+        name:false,
+        image:false,
+        description:'hidden',
+        platforms:false,
+        genres:false
+    })
 
     let history=useHistory()
     function handleUpdate(){
@@ -19,29 +28,43 @@ function Update(props){
     }
     function handleChange(e){
         props.updateDetails({...props.game,[e.target.name]:e.target.value })
+
+        setAlert({...alert,[e.target.name]:validate({
+            ...props.game,[e.target.name]:e.target.value
+           },e.target.name)})
     }
 
     function inputPlatforms(num){
         num&&props.updateDetails({...props.game,platforms:[...props.game.platforms,{name:''}]})
-        !num&&props.updateDetails({...props.game,platforms:props.game.platforms.slice(0,-1)})
+        !num&&props.game.platforms.length>1&&props.updateDetails({...props.game,platforms:props.game.platforms.slice(0,-1)})
     }
     function inputGenres(num){
         num&&props.updateDetails({...props.game,genres:[...props.game.genres,{name:''}]})
-        !num&&props.updateDetails({...props.game,genres:props.game.genres.slice(0,-1)})
+        !num&&props.game.genres.length>1&&props.updateDetails({...props.game,genres:props.game.genres.slice(0,-1)})
     }
     function handlePlatformsChange(e){
         const platforms = [...props.game.platforms];
         platforms[e.target.id][e.target.dataset.name] = e.target.value;
         props.updateDetails({...props.game,platforms:[...platforms]});
+        // validate
+        setAlert({...alert,platforms:validate({
+            ...props.game,platforms:e.target.value
+           },'platforms')})
     }
     function handleGenresChange(e){
         const genres = [...props.game.genres];
         genres[e.target.id][e.target.dataset.name] = e.target.value;
         props.updateDetails({...props.game,genres:[...genres]});
+            // validate
+        setAlert({...alert,genres:validate({
+            ...props.game,genres:e.target.value
+           },'genres')})
     }
     return (
         <div>
             { props.game && ( <div className={updateStyle.container}>
+                <div className={updateStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener un nombre</div>
+                    
                     <div>
                         <span>Nombre: </span>
                         <input className={updateStyle.input}
@@ -50,6 +73,7 @@ function Update(props){
                             name='name'
                             type="text"  placeholder='...nombre'/>
                     </div>
+                    <div className={updateStyle.alert} style={alert.image?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener una imagen</div>
                     <div>
                         <span>Imagen: </span>
                         <input className={updateStyle.input}
@@ -59,6 +83,7 @@ function Update(props){
                             type="text"  placeholder='...imagen'>
                     </input>    
                     </div>
+                    <div className={updateStyle.alert} style={alert.description!=='hidden'?{visibility:'visible'}:{visibility:'hidden'}}>{alert.description} </div>
                     <div className={updateStyle.description}>
                         <span className={updateStyle.tagDescription} >Descripción: </span>   
                         <textarea className={updateStyle.textarea} name="description" id="" cols="30" value={props.game&&props.game.description&&props.game.description.replace(/<[^>]+>/g, '')} rows="10" placeholder='...descripción'
@@ -90,6 +115,7 @@ function Update(props){
                                 </div>
                             )   
                         })}
+                        <span className={updateStyle.alert} style={alert.platforms?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos una plataformas</span>
                     </span>
                     <span className={updateStyle.inputGenres} >
                         <span>Géneros: </span>
@@ -114,6 +140,7 @@ function Update(props){
                                 </div>
                             )   
                         })}
+                        <span className={updateStyle.alert} style={alert.genres?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos un género</span> 
                     </span>
                     <span className={updateStyle.submit} >
                         <div>
