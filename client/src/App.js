@@ -9,14 +9,13 @@ import Platforms from './componentes/platforms';
 import Genres from './componentes/genres';
 import Landing from './componentes/landing';
 import Flag from './componentes/flag'
-import logo from './videogame.png'
 
 function App() {
   return (
-    <div class="container">  
+    <div className="container">  
       <div className="App">
         <Landing/>
-        <h1 class='App-header'>Henry Videogames</h1>
+        <h1 className='App-header'>Henry Videogames</h1>
         <Navbar/>
         <Flag/>
             <Switch>

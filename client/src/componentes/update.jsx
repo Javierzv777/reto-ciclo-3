@@ -76,7 +76,7 @@ function Update(props){
                         </button>
                     
 
-                        {props.game.platforms.map((e,i)=>{
+                        {props.game.platforms&&props.game.platforms.map((e,i)=>{
                             return(
                                 <div key={i}>
                                     <input

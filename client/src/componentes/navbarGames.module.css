@@ -4,6 +4,7 @@
 
 .containerNav{
     clear:both;
+    margin-top: 1rem;
     font-size:x-large;
     font-weight: bold;
 }

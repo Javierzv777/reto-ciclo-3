@@ -13,7 +13,7 @@ function Landing(props){
             {display.flag&&(
               <div className={LandingStyle.container}>
               <div className={LandingStyle.logo}>
-                  <img src={logo} class='App-logo' alt='logo'> 
+                  <img src={logo} className={'App-logo'} alt='logo'> 
                   </img>
                   <div className={LandingStyle.lista}>
                       <ul>

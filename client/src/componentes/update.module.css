@@ -47,12 +47,12 @@
   
 }
 .inputPlatforms{
-  
    float:left; 
 }
 .inputGenres{
     margin-left: 1em;
     display: inline-block;
+    margin-right: 6em;
 }
 .container{
     margin-top: 3rem;
