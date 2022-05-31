@@ -1,5 +1,36 @@
 
 
+.redFlag{
+    display: inline-block;
+    position:absolute;
+    padding:6px;
+    color:white;
+    background-color: red;
+    border-radius: 3px;
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 4s;
+    z-index: 2;
+    
+}
+.greenFlag{
+    display: inline-block;
+    position:absolute;
+    padding:6px;
+    color:white;
+    background-color: green;
+    border-radius: 3px;
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 4s; 
+    z-index: 2;  
+}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+      30% { opacity: 1; }
+      60%{opacity:1}
+      100%{opacity: 0;}
+}
 .alert{
     color:rgb(210, 22, 22);
 }

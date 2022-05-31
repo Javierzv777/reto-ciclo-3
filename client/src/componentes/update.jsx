@@ -14,12 +14,25 @@ function Update(props){
         image:false,
         description:'hidden',
         platforms:false,
-        genres:false
+        genres:false,
+        redFlag:false,
+        greenFlag:false
     })
 
     let history=useHistory()
     function handleUpdate(){
-        props.updateGame(props.game,props.game.id)
+
+        if(alert.name===true||alert.image===true||alert.description!=='hidden'||alert.platforms===true||alert.genres===true){
+            
+            setAlert({...alert,redFlag:false})
+            setAlert({...alert,redFlag:true})
+
+        }else{
+            props.updateGame(props.game,props.game.id)
+            setAlert({...alert,greenFlag:false})
+            setAlert({...alert,greenFlag:true})
+   
+        }
     }
     function handleCancel(){
         props.getCache()
@@ -62,6 +75,13 @@ function Update(props){
     }
     return (
         <div>
+
+            {alert.redFlag&&<div className={updateStyle.redFlag}>
+                Debe llenar todos los campos correctamente
+            </div>}
+            {alert.greenFlag&&<div className={updateStyle.greenFlag}>
+                Se ha producido una actualización en '{props.game.name}'
+            </div>}
             { props.game && ( <div className={updateStyle.container}>
                 <div className={updateStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener un nombre</div>
                     

@@ -22,19 +22,28 @@ function CreateGame(props){
         image:true,
         description:'Debe tener una descripción',
         platforms:true,
-        genres:true
+        genres:true,
+        redFlag:false,
+        greenFlag:false
     })
 
     function handleOnClick(){
-        props.createGame(content)
-        .then(()=> setContent((oldState)=>({
-            name: '',
-        image:'',
-        description:'',
-        platforms:[{name:''}],
-        genres:[{name:''}]
-        })))
        
+        if(alert.name===true||alert.image===true||alert.description!=='hidden'||alert.platforms===true||alert.genres===true){
+            setAlert({...alert,redFlag:false})
+            setAlert({...alert,redFlag:true})
+        }else{
+            props.createGame(content)
+            .then(()=> setContent((oldState)=>({
+                name: '',
+            image:'',
+            description:'',
+            platforms:[{name:''}],
+            genres:[{name:''}]
+            })))
+            setAlert({...alert,greenFlag:false})
+            setAlert({...alert,greenFlag:true})
+        }
     }
      function handleChange(e){
         setContent((oldState)=>({
@@ -73,6 +82,12 @@ function CreateGame(props){
     }
     return (
             <div className={createStyle.container}>
+            {alert.redFlag&&<div className={createStyle.redFlag}>
+                Debe llenar todos los campos correctamente
+            </div>}
+            {alert.greenFlag&&<div className={createStyle.greenFlag}>
+                Se ha creado un nuevo juego en la base de datos '
+            </div>}
                 <div className={createStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener un nombre</div>
                 <div>
                     <span>Nombre: </span>
