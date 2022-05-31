@@ -12,8 +12,11 @@ export const GET_PLATFORMS = 'GET_PLATFORMS'
 export const GET_GENRES = 'GET_GENRES'
 export const SEARCH_BY_PLATFORM = 'SEARCH_BY_PLATFORM'
 export const SEARCH_BY_GENRE = 'SEARCH_BY_GENRE'
+export const START_LOADING='START_LOADING'
 
-
+export function startLoading(){
+    return {type:START_LOADING }
+}
 export function getPlatforms(id, name) {
     return async function (dispatch) {
         if (!id) {

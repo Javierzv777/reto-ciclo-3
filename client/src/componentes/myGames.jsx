@@ -1,6 +1,6 @@
 import myGamesStyle from './myGames.module.css';
 import {connect} from 'react-redux'
-import {getGame, deleteGame, saveGame,getGames, clearList} from '../actions/actions'
+import {getGame, deleteGame, saveGame,getGames, clearList,startLoading} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import SearchBar from './searchBar';
 
@@ -29,7 +29,7 @@ function MyGames(props) {
   }
   const handleSubmit=function(gameName){
     props.getGames(gameName)
-   
+    props.startLoading()
   }
     return (
 
@@ -44,6 +44,7 @@ function MyGames(props) {
 
 
           <div className={myGamesStyle.games}>
+            {props.loading===true&&(<div className={myGamesStyle.loading}></div>)}
               {props.platform&&(<div className={myGamesStyle.title}>{props.platform}</div>)}
               {props.genre&&(<div className={myGamesStyle.title}>{props.genre}</div>)}
               {!props.genre&&!props.platform&&flag!==0&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
@@ -95,7 +96,8 @@ export function mapStateToProps(state) {
       saved: state.savedGames,
       flag:state.flag,
       platform:state.platform,
-      genre:state.genre
+      genre:state.genre,
+      loading:state.loadingFlag
     };
   }
   
@@ -105,7 +107,8 @@ export function mapStateToProps(state) {
       getGame: (m) =>dispatch(getGame(m)),
       saveGame: (id)=>dispatch(saveGame(id)),
       getGames: (id)=>dispatch(getGames(id)),
-      clearList: ()=> dispatch(clearList())
+      clearList: ()=> dispatch(clearList()),
+      startLoading:()=>dispatch(startLoading())
     };
   }
   

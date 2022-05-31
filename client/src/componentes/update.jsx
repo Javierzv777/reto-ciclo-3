@@ -121,7 +121,7 @@ function Update(props){
                         </button>
                     
 
-                        {props.game.platforms&&props.game.platforms.map((e,i)=>{
+                        {props.game&&props.game.platforms&&props.game.platforms.map((e,i)=>{
                             return(
                                 <div key={i}>
                                     <input
@@ -146,7 +146,7 @@ function Update(props){
                             -
                         </button>
                     
-                        {props.game.genres.map((e,i)=>{
+                        {props.game&&props.game.genres&&props.game.genres.map((e,i)=>{
                             return(
                                 <div key={i}>
                                     <input

@@ -25,6 +25,7 @@ function ShowGames(props) {
    
     return (
         <div className={GamesStyle.games}>
+            {props.loading===true&&(<div className={GamesStyle.loading}></div>)}
             {props.games[0]&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
             <div className={GamesStyle.container}>
             {props.games.map((e,i)=>{
@@ -62,7 +63,8 @@ export function mapStateToProps(state) {
     return {
       games: state.games,
       game: state.game,
-      saved: state.savedGames
+      saved: state.savedGames,
+      loading: state.loadingFlag
     };
   }
   
