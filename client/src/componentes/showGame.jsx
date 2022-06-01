@@ -1,18 +1,18 @@
 import gameStyle from './showGame.module.css';
 import {connect} from 'react-redux'
 import React from 'react'
-import { getGame } from '../actions/actions';
+import { setGame } from '../actions/actions';
 
 class ShowGame extends React.Component {
     constructor(props){
         super(props)
         this.state = { counter: 0 };
-        
-     
+  
     }
    componentWillUnmount(){
-       this.props.getGame(undefined)
+       this.props.setGame(undefined)
    }
+   
     // this.setState((state, props) => {
     //     return {counter: state.counter + props.step};
     //   });
@@ -83,7 +83,7 @@ export function mapStateToProps(state) {
   
   export function mapDispatchToProps(dispatch) {
     return {
-        getGame:(m)=>dispatch(getGame(m))
+        setGame:()=>dispatch(setGame())
     };
   }
   

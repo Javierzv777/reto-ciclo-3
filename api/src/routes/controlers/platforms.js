@@ -3,7 +3,6 @@ const {Videogame, Platform}=require('./../../db')
 
  function platforms(req,res){
     
-      
         Platform.findAll()
         .then(response=> res.send(response))
         .catch(e=> console.log(e.message))

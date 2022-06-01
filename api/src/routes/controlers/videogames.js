@@ -15,7 +15,7 @@ async function videogames(req,res){
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`).then(response=>response.data.results).catch(e=> res.status(404).send(e.message))
         ],()=>{})
         .then(arrQuery=> {arrQuery.forEach(e=> e.forEach(e=>{
-            query.push({image:e.background_image||e.image,name:e.name, id: e.id})
+            query.push({image:e.background_image||e.image,name:e.name, id: e.id,rating:e.score||e.rating})
             if(e.id.length)list.push(e.name)
         }))
         res.send({query,list})
@@ -37,7 +37,7 @@ async function videogames(req,res){
         ],()=>{})
         .then(arrQuery=> {
             arrQuery.forEach(e=>e.forEach(e=>{
-                query.push({image:e.background_image||e.image,id:e.id,name:e.name})   
+                query.push({image:e.background_image||e.image,id:e.id,name:e.name,rating:e.rating})   
                 if(e.id.length)list.push(e.name)
             }
             ))

@@ -56,6 +56,7 @@ function MyGames(props) {
                           >
                           <div className={myGamesStyle.subtitle}>
                             <span>{e.name}</span>
+                            <div>{e.rating}</div>
                           </div>
                           <img onClick={()=>handleOnClick(e.id)}
                           className={myGamesStyle.image} src={e.image} alt={e.name}>

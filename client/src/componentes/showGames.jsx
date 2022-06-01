@@ -36,7 +36,9 @@ function ShowGames(props) {
                         >
                         <div className={GamesStyle.subtitle}>
                           <span>{e.name}</span>
+                          <div>{e.rating}</div>
                         </div>
+        
                         <img onClick={()=>handleOnClick(e.id)}
                         className={GamesStyle.image} src={e.image} alt={e.name}>
                         </img>   

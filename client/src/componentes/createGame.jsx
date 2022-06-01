@@ -14,12 +14,13 @@ function CreateGame(props){
         image:'',
         description:'',
         platforms:[{name:''}],
-        genres:[{name:''}]
+        genres:[{name:''}],
+        rating:[]
 
      })
     const [alert, setAlert]=useState({
         name:true,
-        image:true,
+        image:false,
         description:'Debe tener una descripción',
         platforms:true,
         genres:true,
@@ -35,11 +36,12 @@ function CreateGame(props){
         }else{
             props.createGame(content)
             .then(()=> setContent((oldState)=>({
-                name: '',
+            name: '',
             image:'',
             description:'',
             platforms:[{name:''}],
-            genres:[{name:''}]
+            genres:[{name:''}],
+            rating:[]
             })))
             setAlert({...alert,greenFlag:false})
             setAlert({...alert,greenFlag:true})
@@ -49,11 +51,16 @@ function CreateGame(props){
         setContent((oldState)=>({
             ...content,[e.target.name]:e.target.value
         }))
+        
        setAlert({...alert,[e.target.name]:validate({
         ...content,[e.target.name]:e.target.value
        },e.target.name)})
     }
-
+    function handleChangeImage(e){
+        setContent((oldState)=>({
+            ...content,[e.target.name]:e.target.value
+        }))
+    }
     function inputPlatforms(num){
         num&&setContent({...content,platforms:[...content.platforms,{name:'',}]})
         !num&&content.platforms.length>1&&setContent({...content,platforms:content.platforms.slice(0,-1)})
@@ -103,7 +110,7 @@ function CreateGame(props){
                     <input className={createStyle.input}
                         value={content.image}
                         name='image'
-                        onChange={e=>handleChange(e)}
+                        onChange={e=>handleChangeImage(e)}
                         type="text"  placeholder='...imagen'>
                   </input>    
                 </div>

@@ -4,6 +4,7 @@ const { searchGenresByGame, searchGamesByGenre } = require('./controlers/searchB
 const { videogame, createVideogame, updateVideogame,deleteVideogame } = require('./controlers/videogame');
 const { videogames } = require('./controlers/videogames');
 const {platforms,platformsGames}=require('./controlers/platforms')
+const {setScore}=require('./controlers/setScore')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -37,10 +38,13 @@ router.get('/genres/:id', genresGames)
 router.get('/platforms', platforms)
 router.get('/platforms/:id', platformsGames)
 
+router.post('/score', setScore)
+
+
 
 
 router.get('/genresByGame/:gameId', searchGenresByGame)
-router.get('/gamesByGenre/;genreId', searchGamesByGenre)
+router.get('/gamesByGenre/:genreId', searchGamesByGenre)
 // [ ] GET /genres:
 // Obtener todos los tipos de géneros de videojuegos posibles
 // En una primera instancia deberán traerlos desde rawg y guardarlos en su propia base de datos y luego ya utilizarlos desde allí

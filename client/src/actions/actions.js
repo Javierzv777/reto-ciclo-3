@@ -13,7 +13,11 @@ export const GET_GENRES = 'GET_GENRES'
 export const SEARCH_BY_PLATFORM = 'SEARCH_BY_PLATFORM'
 export const SEARCH_BY_GENRE = 'SEARCH_BY_GENRE'
 export const START_LOADING='START_LOADING'
+export const SET_GAME='SET_GAME'
 
+export function setGame(){
+    return {type:SET_GAME}
+}
 export function startLoading(){
     return {type:START_LOADING }
 }
@@ -147,8 +151,8 @@ export function saveGame(id) {
                     axios.get(`http://localhost:3001/videogame/${response.data.id}`)
                         .then((response) => {
 
-                            const { id, name, image } = response.data.element
-                            dispatch({ type: ADD_GAME, payload: { id, name, image } })
+                            const { id, name, image,score } = response.data.element
+                            dispatch({ type: ADD_GAME, payload: { id, name, image,rating:score } })
                         })
                 });
             })

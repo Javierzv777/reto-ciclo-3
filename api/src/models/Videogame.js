@@ -23,8 +23,8 @@ module.exports = (sequelize) => {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW   
     },
-    rating: {
-      type: DataTypes.INTEGER,
+    score: {
+      type: DataTypes.FLOAT(2),
       validate:{max:5},
       defaultValue:0
 
