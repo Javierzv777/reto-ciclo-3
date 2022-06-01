@@ -2,6 +2,7 @@ import GamesStyle from './showGames.module.css';
 import {connect} from 'react-redux'
 import {getGame,saveGame,deleteGame, clearList} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
+import stars from './../cincoEstrellas.png'
 
 
 
@@ -31,12 +32,19 @@ function ShowGames(props) {
             {props.games.map((e,i)=>{
                 return(!props.saved.includes(e.name)) &&(
                     <div className={GamesStyle.cardContainer}
-                    key={i}>
+                      key={i}>
                       <div className={GamesStyle.card} 
                         >
                         <div className={GamesStyle.subtitle}>
                           <span>{e.name}</span>
-                          <div>{e.rating}</div>
+                          <div className={GamesStyle.subtitle}>
+                            <div className={GamesStyle.score}>{e.rating}</div>
+                            <div className={GamesStyle.stars}>
+                              <div style={{width:`calc(20% * ${e.rating})`}}></div>
+                              <img src={stars} alt={e.rating} title={e.rating}/>
+                            </div>
+                          </div>
+                          
                         </div>
         
                         <img onClick={()=>handleOnClick(e.id)}

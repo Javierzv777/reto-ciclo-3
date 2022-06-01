@@ -14,7 +14,25 @@ export const SEARCH_BY_PLATFORM = 'SEARCH_BY_PLATFORM'
 export const SEARCH_BY_GENRE = 'SEARCH_BY_GENRE'
 export const START_LOADING='START_LOADING'
 export const SET_GAME='SET_GAME'
+export const UPDATE_RATING='UPDATE_RATING'
 
+
+export function updateRating(id,rating){
+    return async function(dispatch){
+        if(id){
+            return axios.post(`http://localhost:3001/score/?id=${id}&score=${rating}`)
+            .then((response)=>{
+
+                console.log(response)
+                
+                return axios.get(`http://localhost:3001/videogame/${id}`)
+            })
+            .then((response)=>{
+                dispatch({type:UPDATE_RATING, payload:response.data.element})  
+            })
+        }
+    }
+}
 export function setGame(){
     return {type:SET_GAME}
 }

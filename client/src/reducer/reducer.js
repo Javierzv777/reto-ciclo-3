@@ -1,5 +1,5 @@
 
-import {SET_GAME,SEARCH_BY_GENRE,SEARCH_BY_PLATFORM,CREATE_GAME, UPDATE_GAME, GET_GAMES, GET_GAME, ADD_GAME, REMOVE_GAME, UPDATE_DETAILS,GET_CACHE_GAME, CLEAR_LIST, GET_PLATFORMS, GET_GENRES, START_LOADING} from './../actions/actions'
+import {SET_GAME,SEARCH_BY_GENRE,SEARCH_BY_PLATFORM,CREATE_GAME, UPDATE_GAME, GET_GAMES, GET_GAME, ADD_GAME, REMOVE_GAME, UPDATE_DETAILS,GET_CACHE_GAME, CLEAR_LIST, GET_PLATFORMS, GET_GENRES, START_LOADING, UPDATE_RATING} from './../actions/actions'
 
 const initialState={
     games:[],
@@ -27,8 +27,12 @@ function compare_lname( a, b )
 export  const reducer=(state=initialState, action)=>{
 // console.log(action.payload)
     switch(action.type){
-        case START_LOADING: console.log('startloading')
-        return {...state, loadingFlag:true}
+        // case UPDATE_RATING: let foundGameToRate=state.games.find(g=>g.id===action.payload.id)
+        // foundGameToRate.rating=action.payload.rating;
+        // let foundGamesToRatestate=state.games.filter(g=>g.id!==action.payload.id)
+        // console.log(foundGamesToRatestate.push(foundGameToRate))
+        // // return {...state,games:}
+        case START_LOADING:return {...state, loadingFlag:true}
         case GET_PLATFORMS: return {...state, platforms:[...action.payload]}
         case GET_GENRES: return {...state, genres:[...action.payload]}
         case CLEAR_LIST: return {...state, games:[]}
@@ -37,7 +41,8 @@ export  const reducer=(state=initialState, action)=>{
         return {...state, games:[...games,action.payload]}
         case SEARCH_BY_PLATFORM: return {...state, games:[...action.payload.data], flag:action.payload.data.length?false:true,platform:action.payload.name,genre:undefined }
         case SEARCH_BY_GENRE: return {...state, games:[...action.payload.data], flag:action.payload.data.length?false:true,genre:action.payload.name,platform:undefined }
-        case GET_GAMES: action.payload.query.sort(compare_lname) 
+        case GET_GAMES:console.log(action.payload) 
+        action.payload.query.sort(compare_lname) 
         return {...state, games:[...action.payload.query],savedGames:[...action.payload.list],flag:false,genre:undefined,platform:undefined, loadingFlag:false};
         case GET_GAME: let rating= action.payload.rating.reduce((a,i)=>a+i.score,0)/action.payload.rating.length
           rating=isNaN(rating)?0:rating
