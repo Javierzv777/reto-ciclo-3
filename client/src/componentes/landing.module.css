@@ -32,7 +32,7 @@
 .container{
     background-color:black;
      /* rgb(109, 27, 27); */
-    position:absolute;
+    position:fixed;
     z-index: 2;
     width: screen;
     height:70rem;

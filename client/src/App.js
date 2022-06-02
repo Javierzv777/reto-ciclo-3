@@ -8,7 +8,7 @@ import NavbarGames from './componentes/navbarGames';
 import Platforms from './componentes/platforms';
 import Genres from './componentes/genres';
 import Landing from './componentes/landing';
-import Flag from './componentes/flag'
+
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Landing/>
         <h1 className='App-header'>Henry Videogames</h1>
         <Navbar/>
-        <Flag/>
+       
             <Switch>
                 <Route path='/home'>
                   <Home></Home>

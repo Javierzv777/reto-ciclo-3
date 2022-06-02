@@ -18,7 +18,11 @@ export const UPDATE_RATING='UPDATE_RATING'
 export const SET_GAMES='SET_GAMES'
 export const SORT_BY_NAME='SORT_BY_NAME'
 export const SORT_BY_RATING='SORT_BY_RATING'
+export const REVERSE='REVERSE'
 
+export function reverseFn(){
+    return{type:REVERSE}
+}
 export function sortByName(){
     return{type:SORT_BY_NAME}
 }
@@ -191,7 +195,7 @@ export function deleteGame(id, name) {
     return async function (dispatch) {
         return axios.delete(`http://localhost:3001/videogame/${id}`)
             .then((e) => {
-                dispatch({ type: REMOVE_GAME, payload: e.data.gameDeleted })
+                dispatch({ type: REMOVE_GAME, payload: {id:e.data.gameDeleted,name} })
             }
             )
     }

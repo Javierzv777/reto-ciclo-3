@@ -17,7 +17,8 @@ module.exports = (sequelize) => {
     },
     description:{
       type: DataTypes.TEXT,
-      allowNull:false
+      allowNull:false,
+      defaultValue:'sin descripción'
     },
     released :{
       type: DataTypes.DATEONLY,

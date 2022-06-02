@@ -15,7 +15,8 @@ describe('Videogame model', () => {
           .catch(() => done());
       });
       it('should work when its a valid name', () => {
-        Recipe.create({ name: 'Super Mario Bros' });
+        Videogame.create({ name: 'Super Mario Bros' });
+        // Recipe.create({ name: 'Super Mario Bros' });
       });
     });
   });

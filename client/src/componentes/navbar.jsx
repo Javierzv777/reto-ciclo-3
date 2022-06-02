@@ -65,7 +65,7 @@ function Navbar(props) {
                 < SearchBar 
                     handleSubmit={handleSubmit}
                     searchButton={'Buscar'} 
-                    placeHolder={'...Buscar Juegos en la api'}
+                    placeHolder={'...Buscar Juegos '}
                 />
             </span>
             

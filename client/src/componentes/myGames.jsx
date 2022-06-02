@@ -1,6 +1,6 @@
 import myGamesStyle from './myGames.module.css';
 import {connect} from 'react-redux'
-import {getGame, deleteGame, saveGame,getGames, clearList,startLoading,updateRating,setGames,sortByName,sortByRating} from '../actions/actions'
+import {reverseFn,getGame, deleteGame, saveGame,getGames, clearList,startLoading,updateRating,setGames,sortByName,sortByRating} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import SearchBar from './searchBar';
 import stars from './../cincoEstrellas.png'
@@ -15,18 +15,30 @@ function MyGames(props) {
   flag=((props.saved.length^props.flag)&&props.games.length) 
   const [qualify,setQualify]=useState({flag:false, rating:0, id:null})
   const[sort,setSort]=useState('ordenar por rating')
+  const [reverse,setReverse]=useState('Descendente')
  
- const sortBy=()=>{
+  const sortBy=()=>{
    if(sort==='ordenar por rating'){
      props.sortByRating()
      setSort('ordenar por nombre')
+     setReverse('descendente')
    }
    else{
      props.sortByName()
      setSort('ordenar por rating')
+     setReverse('descendente')
    }
  }
-
+ const sortReverse=()=>{
+  if(reverse==='Ascendente'){
+    props.reverseFn()
+    setReverse('Descendente')
+  }
+  else{
+    props.reverseFn()
+    setReverse('Ascendente')
+  }
+}
  let history=useHistory()
 //  useEffect(()=>{
 //   return ()=>{
@@ -127,6 +139,10 @@ function MyGames(props) {
                 <button
                 onClick={()=>sortBy()}
                 >{sort}</button></div>)}
+                {(flag!==0||props.platform||props.genre)&&(<div className={myGamesStyle.sortBy}>
+                <button
+                onClick={()=>sortReverse()}
+                >{reverse}</button></div>)}
               {props.platform&&(<div className={myGamesStyle.title}>{props.platform}</div>)}
               {props.genre&&(<div className={myGamesStyle.title}>{props.genre}</div>)}
               {!props.genre&&!props.platform&&flag!==0&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
@@ -188,7 +204,8 @@ export function mapStateToProps(state) {
       flag:state.flag,
       platform:state.platform,
       genre:state.genre,
-      loading:state.loadingFlag
+      loading:state.loadingFlag,
+
     };
   }
   
@@ -203,7 +220,8 @@ export function mapStateToProps(state) {
       updateRating:(id,rating)=>dispatch(updateRating(id,rating)),
       setGames:()=>dispatch(setGames()),
       sortByName:()=>dispatch(sortByName()),
-      sortByRating:()=>dispatch(sortByRating())
+      sortByRating:()=>dispatch(sortByRating()),
+      reverseFn:()=>dispatch(reverseFn())
     };
   }
   

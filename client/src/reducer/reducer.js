@@ -1,5 +1,5 @@
 
-import {SET_GAMES,SET_GAME,SEARCH_BY_GENRE,SEARCH_BY_PLATFORM,CREATE_GAME, UPDATE_GAME, GET_GAMES, GET_GAME, ADD_GAME, REMOVE_GAME, UPDATE_DETAILS,GET_CACHE_GAME, CLEAR_LIST, GET_PLATFORMS, GET_GENRES, START_LOADING, UPDATE_RATING, SORT_BY_NAME, SORT_BY_RATING} from './../actions/actions'
+import {SET_GAMES,SET_GAME,SEARCH_BY_GENRE,SEARCH_BY_PLATFORM,CREATE_GAME, UPDATE_GAME, GET_GAMES, GET_GAME, ADD_GAME, REMOVE_GAME, UPDATE_DETAILS,GET_CACHE_GAME, CLEAR_LIST, GET_PLATFORMS, GET_GENRES, START_LOADING, UPDATE_RATING, SORT_BY_NAME, SORT_BY_RATING, REVERSE} from './../actions/actions'
 
 const initialState={
     games:[],
@@ -27,6 +27,7 @@ function compare_lname( a, b )
 export  const reducer=(state=initialState, action)=>{
 
     switch(action.type){
+        case REVERSE: return {...state, games:[...state.games.reverse()]}
         case SORT_BY_NAME: state.games.sort(compare_lname) 
           return {...state,games:[...state.games]}
         case SORT_BY_RATING: state.games.sort((e,i)=>e.rating-i.rating).reverse()
@@ -58,9 +59,32 @@ export  const reducer=(state=initialState, action)=>{
           return {...state, game:{...action.payload,rating},cacheGame:{...action.payload,rating}};
         case SET_GAME: return {...state, game:undefined}
         case SET_GAMES:return {...state, games:[]}
-        case ADD_GAME: return {...state, games:[action.payload,...state.games],savedGames:[...state.savedGames,action.payload.name]}
-        case REMOVE_GAME: const foundGame= state.games.find(e=>e.id===action.payload) 
-        return {...state, games: state.games.filter(e=>e.id!==action.payload), savedGames:state.savedGames.filter(e=>e!==foundGame.name) }
+        case ADD_GAME: 
+           let savedGames={name:'',id:''}
+         state.games.forEach((e)=>{
+          if(e.name===action.payload.name){
+            savedGames.name=e.name;
+            savedGames.id=e.id;
+            e.id=action.payload.id
+          }
+        })
+        return {...state, games:[...state.games],savedGames:[...state.savedGames,savedGames]}
+        case REMOVE_GAME: 
+        let foundGame=false
+        state.games.forEach(e=>{
+          if(e.id===action.payload.id){
+            foundGame=state.savedGames.find(element=> element.name===e.name)
+            if(foundGame){
+              e.id=foundGame.id
+              foundGame=foundGame.name
+            }else{
+             state.games=[...state.games.filter(f=>f.id!==e.id)] 
+            }
+            
+            }
+          }) 
+        return {...state, games: [...state.games], savedGames:state.savedGames.filter(e=>e.name!==foundGame) }
+      
         case UPDATE_DETAILS: return {...state, game: {...action.payload}}
         case GET_CACHE_GAME: return {...state,game:{...state.cacheGame}}
         default: return state;

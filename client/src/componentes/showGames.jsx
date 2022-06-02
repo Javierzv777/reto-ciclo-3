@@ -1,25 +1,43 @@
 import GamesStyle from './showGames.module.css';
 import {connect} from 'react-redux'
-import {getGame,saveGame,deleteGame, clearList,setGames} from '../actions/actions'
+import {reverseFn ,sortByName,sortByRating,getGame,saveGame,deleteGame, clearList,setGames} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import stars from './../cincoEstrellas.png'
-import {useEffect} from 'react'
+import {useState} from 'react'
 
 
 
 function ShowGames(props) {
 
-  useEffect(()=>{
-    
-    return ()=>{
-    console.log('unmounted')  
-      props.setGames()
-    }
 
-  },[])
 
   let history=useHistory()
 
+  const[sort,setSort]=useState('ordenar por rating')
+  const [reverse,setReverse]=useState('Descendente')
+ 
+  const sortBy=()=>{
+   if(sort==='ordenar por rating'){
+     props.sortByRating()
+     setSort('ordenar por nombre')
+     setReverse('descendente')
+   }
+   else{
+     props.sortByName()
+     setSort('ordenar por rating')
+     setReverse('descendente')
+   }
+ }
+ const sortReverse=()=>{
+  if(reverse==='Ascendente'){
+    props.reverseFn()
+    setReverse('Descendente')
+  }
+  else{
+    props.reverseFn()
+    setReverse('Ascendente')
+  }
+  }
   const handleOnClick=(id)=>{
     props.getGame(id)
     history.push("/videogame/detail")
@@ -35,10 +53,18 @@ function ShowGames(props) {
     return (
         <div className={GamesStyle.games}>
             {props.loading===true&&(<div className={GamesStyle.loading}></div>)}
+            {props.games[0]&&(<div className={GamesStyle.sortBy}>
+                <button
+                onClick={()=>sortBy()}
+                >{sort}</button></div>)}
+                {props.games[0]&&(<div className={GamesStyle.sortBy}>
+                <button
+                onClick={()=>sortReverse()}
+                >{reverse}</button></div>)}
             {props.games[0]&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
             <div className={GamesStyle.container}>
             {props.games.map((e,i)=>{
-                return(!props.saved.includes(e.name)) &&(
+                return(props.games) &&(
                     <div className={GamesStyle.cardContainer}
                       key={i}>
                       <div className={GamesStyle.card} 
@@ -92,7 +118,10 @@ export function mapStateToProps(state) {
       getGame: (m) =>dispatch(getGame(m)),
       saveGame: (id)=>dispatch(saveGame(id)),
       clearList: ()=>dispatch(clearList()),
-      setGames: ()=>dispatch(setGames())
+      setGames: ()=>dispatch(setGames()),
+      sortByName:()=>dispatch(sortByName()),
+      sortByRating:()=>dispatch(sortByRating()),
+      reverseFn:()=>dispatch(reverseFn())
     };
   }
   
