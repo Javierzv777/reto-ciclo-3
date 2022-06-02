@@ -27,11 +27,16 @@ function compare_lname( a, b )
 export  const reducer=(state=initialState, action)=>{
 // console.log(action.payload)
     switch(action.type){
-        // case UPDATE_RATING: let foundGameToRate=state.games.find(g=>g.id===action.payload.id)
-        // foundGameToRate.rating=action.payload.rating;
-        // let foundGamesToRatestate=state.games.filter(g=>g.id!==action.payload.id)
-        // console.log(foundGamesToRatestate.push(foundGameToRate))
-        // // return {...state,games:}
+        case UPDATE_RATING:let ratings= action.payload.rating.reduce((a,i)=>a+i.score,0)/action.payload.rating.length
+        ratings=isNaN(ratings)?0:ratings
+        ratings=ratings.toFixed(2)
+        // let foundGameToRate=state.games.find(g=>g.id===action.payload.id)
+        state.games.forEach(g=>{
+          if(g.id===action.payload.id){
+            g.rating=ratings
+          }
+        })
+        return {...state,games:[...state.games]}
         case START_LOADING:return {...state, loadingFlag:true}
         case GET_PLATFORMS: return {...state, platforms:[...action.payload]}
         case GET_GENRES: return {...state, genres:[...action.payload]}
@@ -41,7 +46,7 @@ export  const reducer=(state=initialState, action)=>{
         return {...state, games:[...games,action.payload]}
         case SEARCH_BY_PLATFORM: return {...state, games:[...action.payload.data], flag:action.payload.data.length?false:true,platform:action.payload.name,genre:undefined }
         case SEARCH_BY_GENRE: return {...state, games:[...action.payload.data], flag:action.payload.data.length?false:true,genre:action.payload.name,platform:undefined }
-        case GET_GAMES:console.log(action.payload) 
+        case GET_GAMES: 
         action.payload.query.sort(compare_lname) 
         return {...state, games:[...action.payload.query],savedGames:[...action.payload.list],flag:false,genre:undefined,platform:undefined, loadingFlag:false};
         case GET_GAME: let rating= action.payload.rating.reduce((a,i)=>a+i.score,0)/action.payload.rating.length

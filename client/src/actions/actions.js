@@ -22,8 +22,6 @@ export function updateRating(id,rating){
         if(id){
             return axios.post(`http://localhost:3001/score/?id=${id}&score=${rating}`)
             .then((response)=>{
-
-                console.log(response)
                 
                 return axios.get(`http://localhost:3001/videogame/${id}`)
             })
