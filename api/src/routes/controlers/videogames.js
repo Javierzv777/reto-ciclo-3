@@ -11,7 +11,7 @@ async function videogames(req,res){
         const list=[]
         const query=[]
         Promise.each([
-            Videogame.findAll().catch(e=> res.status(404).send(e.message)),
+            Videogame.findAll().catch(e=> {throw Error(e.message)}),
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`).then(response=>response.data.results).catch(e=> res.status(404).send(e.message))
         ],()=>{})
         .then(arrQuery=> {arrQuery.forEach(e=> e.forEach(e=>{

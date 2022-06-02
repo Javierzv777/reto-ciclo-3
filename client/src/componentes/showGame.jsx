@@ -32,8 +32,11 @@ class ShowGame extends React.Component {
                             </img>
                             <span>
                                 <span className={gameStyle.rating}>
-                                Rating: {this.props.game.rating}
+                                    Lanzamiento: {this.props.game.released}
                                 </span>
+                                <div>
+                                    Rating: {this.props.game.rating}
+                                </div>
                             </span>
                         </span>
                         <span className={gameStyle.description}>

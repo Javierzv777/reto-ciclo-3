@@ -1,3 +1,13 @@
+
+.sortBy{
+    text-align: center;
+    margin-top: 1rem;
+}
+.sortBy button{
+    padding: 2px 5px;
+    color: #dddddd;
+    background-color: #009579 ;
+}
 .buttonInputRadio{
     position:absolute;
     margin-top: 4rem;
@@ -40,7 +50,7 @@
 
 .starsRate{
     position:relative;
-    height:17em ;
+    height:18em ;
     margin-left: 15px;
     background-color: white;
     margin-right: 340px;
@@ -153,6 +163,7 @@
     bottom: 0;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    z-index: 112;
 }
 .subtitle{
     height: 4rem;

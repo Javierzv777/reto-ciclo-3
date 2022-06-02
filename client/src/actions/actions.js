@@ -15,8 +15,19 @@ export const SEARCH_BY_GENRE = 'SEARCH_BY_GENRE'
 export const START_LOADING='START_LOADING'
 export const SET_GAME='SET_GAME'
 export const UPDATE_RATING='UPDATE_RATING'
+export const SET_GAMES='SET_GAMES'
+export const SORT_BY_NAME='SORT_BY_NAME'
+export const SORT_BY_RATING='SORT_BY_RATING'
 
-
+export function sortByName(){
+    return{type:SORT_BY_NAME}
+}
+export function sortByRating(){
+    return{type:SORT_BY_RATING}
+}
+export function setGames(){
+    return{type:SET_GAMES}
+}
 export function updateRating(id,rating){
     return async function(dispatch){
         if(id){

@@ -1,14 +1,22 @@
 import GamesStyle from './showGames.module.css';
 import {connect} from 'react-redux'
-import {getGame,saveGame,deleteGame, clearList} from '../actions/actions'
+import {getGame,saveGame,deleteGame, clearList,setGames} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import stars from './../cincoEstrellas.png'
-
+import {useEffect} from 'react'
 
 
 
 function ShowGames(props) {
 
+  useEffect(()=>{
+    
+    return ()=>{
+    console.log('unmounted')  
+      props.setGames()
+    }
+
+  },[])
 
   let history=useHistory()
 
@@ -40,7 +48,7 @@ function ShowGames(props) {
                           <div className={GamesStyle.subtitle}>
                             <div className={GamesStyle.score}>{e.rating}</div>
                             <div className={GamesStyle.stars}>
-                              <div style={{width:`calc(20% * ${e.rating})`}}></div>
+                              <div style={{width:e.rating===0?'0%':`calc(20% * ${e.rating})`}}></div>
                               <img src={stars} alt={e.rating} title={e.rating}/>
                             </div>
                           </div>
@@ -83,7 +91,8 @@ export function mapStateToProps(state) {
       deleteGame:(id)=>dispatch(deleteGame(id)),
       getGame: (m) =>dispatch(getGame(m)),
       saveGame: (id)=>dispatch(saveGame(id)),
-      clearList: ()=>dispatch(clearList())
+      clearList: ()=>dispatch(clearList()),
+      setGames: ()=>dispatch(setGames())
     };
   }
   

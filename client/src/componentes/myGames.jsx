@@ -1,6 +1,6 @@
 import myGamesStyle from './myGames.module.css';
 import {connect} from 'react-redux'
-import {getGame, deleteGame, saveGame,getGames, clearList,startLoading,updateRating} from '../actions/actions'
+import {getGame, deleteGame, saveGame,getGames, clearList,startLoading,updateRating,setGames,sortByName,sortByRating} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import SearchBar from './searchBar';
 import stars from './../cincoEstrellas.png'
@@ -14,8 +14,26 @@ function MyGames(props) {
   let flag=false;
   flag=((props.saved.length^props.flag)&&props.games.length) 
   const [qualify,setQualify]=useState({flag:false, rating:0, id:null})
+  const[sort,setSort]=useState('ordenar por rating')
  
+ const sortBy=()=>{
+   if(sort==='ordenar por rating'){
+     props.sortByRating()
+     setSort('ordenar por nombre')
+   }
+   else{
+     props.sortByName()
+     setSort('ordenar por rating')
+   }
+ }
+
  let history=useHistory()
+//  useEffect(()=>{
+//   return ()=>{
+//   console.log('unmounted')  
+//     props.setGames()
+//   }
+//   },[])
 
   const handleQualify=(id)=>{
     setQualify({
@@ -105,6 +123,10 @@ function MyGames(props) {
           )}
           <div className={myGamesStyle.games}>
             {props.loading===true&&(<div className={myGamesStyle.loading}></div>)}
+              {(flag!==0||props.platform||props.genre)&&(<div className={myGamesStyle.sortBy}>
+                <button
+                onClick={()=>sortBy()}
+                >{sort}</button></div>)}
               {props.platform&&(<div className={myGamesStyle.title}>{props.platform}</div>)}
               {props.genre&&(<div className={myGamesStyle.title}>{props.genre}</div>)}
               {!props.genre&&!props.platform&&flag!==0&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
@@ -119,7 +141,7 @@ function MyGames(props) {
                               <div className={myGamesStyle.subtitle}>
                                 <div className={myGamesStyle.score}>{e.rating}</div>
                                 <div className={myGamesStyle.stars}>
-                                  <div style={{width:`calc(20% * ${e.rating})`}}></div>
+                                  <div style={!e.rating?{width:`0%`}:{width:`calc(20% * ${e.rating})`}}></div>
                                   <img src={stars} alt={e.rating} title={e.rating}/>
                                 </div>
                             </div>
@@ -178,7 +200,10 @@ export function mapStateToProps(state) {
       getGames: (id)=>dispatch(getGames(id)),
       clearList: ()=> dispatch(clearList()),
       startLoading:()=>dispatch(startLoading()),
-      updateRating:(id,rating)=>dispatch(updateRating(id,rating))
+      updateRating:(id,rating)=>dispatch(updateRating(id,rating)),
+      setGames:()=>dispatch(setGames()),
+      sortByName:()=>dispatch(sortByName()),
+      sortByRating:()=>dispatch(sortByRating())
     };
   }
   
