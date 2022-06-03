@@ -1,9 +1,10 @@
 
 import createStyle from './createGame.module.css';
-import {useState} from 'react';
-import { createGame } from '../actions/actions';
+import {useState, useEffect} from 'react';
+import { createGame, getGenres, getPlatforms,updateGenres, updatePlatforms } from '../actions/actions';
 import {connect} from 'react-redux';
 import {validate} from './validate'
+
 // this.dato3.push({value:''})
 // this.dato3.splice(ind-1,1);
 
@@ -27,6 +28,11 @@ function CreateGame(props){
         redFlag:false,
         greenFlag:false
     })
+
+    useEffect(()=>{
+        props.getGenres()
+        props.getPlatforms()
+    }, [])
 
     function handleOnClick(){
        
@@ -63,16 +69,30 @@ function CreateGame(props){
     }
     function inputPlatforms(num){
         num&&setContent({...content,platforms:[...content.platforms,{name:'',}]})
-        !num&&content.platforms.length>1&&setContent({...content,platforms:content.platforms.slice(0,-1)})
-        // !num&&content.platforms.length===1&&setAlert({...alert,platforms:true})
+        if(!num&&content.platforms.length>1){
+            let aux=content.platforms[content.platforms.length-1].name
+            if(aux){
+                props.updatePlatforms([...props.platforms,{name:aux}])
+            }
+            setContent({...content,platforms:content.platforms.slice(0,-1)})
+        }
     }
     function inputGenres(num){
         num&&setContent({...content,genres:[...content.genres,{name:'',}]})
-        !num&&content.genres.length>1&&setContent({...content,genres:content.genres.slice(0,-1)})
-        // !num&&content.genres.length===1&&setAlert({...alert,genres:true})
+        if(!num&&content.genres.length>1){
+           
+            let aux=content.genres[content.genres.length-1].name
+            if(aux){
+                props.updateGenres([...props.genres,{name:aux}])
+            }
+            setContent({...content,genres:content.genres.slice(0,-1)})
+        }
+        
     }
     function handlePlatformsChange(e){
         const platforms = [...content.platforms];
+        let aux=content.platforms[e.target.id][e.target.dataset.name]
+        props.updatePlatforms([...props.platforms.filter(platforms=>platforms.name!==e.target.value),{name:aux}])
         platforms[e.target.id][e.target.dataset.name] = e.target.value;
         setContent({...content,platforms:[...platforms]});
         setAlert({...alert,platforms:validate({
@@ -81,6 +101,8 @@ function CreateGame(props){
     }
     function handleGenresChange(e){
         const genres = [...content.genres];
+        let aux=content.genres[e.target.id][e.target.dataset.name]
+        props.updateGenres([...props.genres.filter(genre=>genre.name!==e.target.value),{name:aux}])
         genres[e.target.id][e.target.dataset.name] = e.target.value;
         setContent({...content,genres:[...genres]});
         setAlert({...alert,genres:validate({
@@ -132,18 +154,34 @@ function CreateGame(props){
                             -
                         </button>
                         {content.platforms.map((e,i)=>{
-                            return(
-                                <div key={i}>
-                                    <input
-                                        type="text"
-                                        name={`platforms-${i}`}
-                                        id={i}
-                                        data-name="name"
-                                        value={e.name}
-                                        onChange={(e)=>handlePlatformsChange(e)}
-                                    />
-                                </div>
-                            )   
+                           return(
+                            <div key={i}>
+                                <select  
+                                 name={`platforms-${i}`}
+                                 id={i}
+                                 data-name="name"
+                                 value={e.name} 
+                                 onChange={(e)=>handlePlatformsChange(e)}>
+                                
+                                    <option disabled value=""  >__Plataformas
+                                    </option>
+                                    {[...props.platforms&&props.platforms.map((platforms,id)=>{
+                                        return(<option key={id}
+                                       
+                                        
+                                        >{platforms.name}
+                                        </option>
+                                        )
+                                    })
+                                    ,(<option key={props.platforms.length}
+                                       
+                                        
+                                        >{e.name}
+                                        </option>
+                                        )]}
+                                </select>
+                            </div>
+                        )   
                         })}
                         <span className={createStyle.alert} style={alert.platforms?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos una plataformas</span>
                     </span>
@@ -155,18 +193,33 @@ function CreateGame(props){
                         <button   onClick={()=>inputGenres(false)}>
                             -
                         </button>
-                    
                         {content.genres.map((e,i)=>{
                             return(
                                 <div key={i}>
-                                    <input
-                                        type="text"
-                                        name={`genres-${i}`}
-                                        id={i}
-                                        data-name="name"
-                                        value={e.name}
-                                        onChange={(e)=>handleGenresChange(e)}
-                                    />
+                                    <select  
+                                     name={`genres-${i}`}
+                                     id={i}
+                                     data-name="name"
+                                     value={e.name} 
+                                     onChange={(e)=>handleGenresChange(e)}>
+                                    
+                                        <option disabled value=""  >__Géneros
+                                        </option>
+                                        {[...props.genres&&props.genres.map((genres,id)=>{
+                                            return(<option key={id}
+                                           
+                                            
+                                            >{genres.name}
+                                            </option>
+                                            )
+                                        })
+                                        ,(<option key={props.genres.length}
+                                           
+                                            
+                                            >{e.name}
+                                            </option>
+                                            )]}
+                                    </select>
                                 </div>
                             )   
                         })}
@@ -194,12 +247,18 @@ function CreateGame(props){
 export function mapStateToProps(state) {
     return {
       game: state.game,
+      genres:state.genres,
+      platforms:state.platforms
     };
   }
   
   export function mapDispatchToProps(dispatch) {
     return {
-        createGame:(g)=>dispatch(createGame(g))
+        createGame:(g)=>dispatch(createGame(g)),
+        getGenres: (g)=>dispatch(getGenres(g)),
+        getPlatforms: (p)=>dispatch(getPlatforms(p)),
+        updateGenres:(arr)=>dispatch(updateGenres(arr)),
+        updatePlatforms:(arr)=>dispatch(updatePlatforms(arr))
     };
   }
   export default connect(mapStateToProps,mapDispatchToProps)(CreateGame)

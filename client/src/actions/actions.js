@@ -20,6 +20,13 @@ export const SORT_BY_NAME='SORT_BY_NAME'
 export const SORT_BY_RATING='SORT_BY_RATING'
 export const REVERSE='REVERSE'
 
+
+export function updatePlatforms(arr){
+    return {type:GET_PLATFORMS,payload:[...arr] }
+}
+export function updateGenres(arr){
+    return {type:GET_GENRES,payload:[...arr] }
+}
 export function reverseFn(){
     return{type:REVERSE}
 }

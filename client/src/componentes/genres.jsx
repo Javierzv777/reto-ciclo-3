@@ -10,6 +10,7 @@ import {getGenres} from '../actions/actions'
 
 
 
+
 function Genres(props) {
 
 
