@@ -7,15 +7,14 @@ class ShowGame extends React.Component {
     constructor(props){
         super(props)
         this.state = { counter: 0 };
-  
+        console.log(props)
+        
     }
    componentWillUnmount(){
        this.props.setGame(undefined)
    }
    
-    // this.setState((state, props) => {
-    //     return {counter: state.counter + props.step};
-    //   });
+
     render(){
             return (
             <div className={gameStyle.game}>
@@ -67,8 +66,14 @@ class ShowGame extends React.Component {
                                 </span>
                             </div>
                         </span>
+                        <button className={gameStyle.buttonBack} onClick={()=>this.props.history.goBack()}>
+                            atras
+                        </button>
                     </div>
+                   
                     }
+                    
+                    
                 </div>
                     
                 

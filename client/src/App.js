@@ -10,6 +10,7 @@ import Genres from './componentes/genres';
 import Landing from './componentes/landing';
 
 
+
 function App() {
   return (
     <div className="container">  
@@ -25,6 +26,9 @@ function App() {
                 <Route  path='/videogame/'>
                   <NavbarGames/>
                 </Route>
+                
+                <Route exact path='/detail'render={({match,history}) => <ShowGame match={match}  history={history}/>} />
+                 
                 <Route exact path='/videogame/detail'>
                   <ShowGame/>
                 </Route>

@@ -3,20 +3,65 @@ import {connect} from 'react-redux'
 import {reverseFn ,sortByName,sortByRating,getGame,saveGame,deleteGame, clearList,setGames} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import stars from './../cincoEstrellas.png'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
 
 
 function ShowGames(props) {
 
 
+  
 
   let history=useHistory()
 
   const[sort,setSort]=useState('ordenar por rating')
   const [reverse,setReverse]=useState('Descendente')
   const [gamesToShow,setGamesToShow]=useState({flag:'all', message:'mostrando todos los juegos'})
+  const [Games, setGames]=useState({ showGames:[]})
+  const [page, setPage]=useState('1')
  
+
+
+  useEffect(()=>{
+    setGames({showGames:props.games.filter((e,i)=>i>=0&&i<20)})
+    handleOnChangePages('1')
+    return ()=>{return props.setGames}
+  },[props.games,props.setGames])
+
+
+  const handleOnChangePagesArrow=(e)=>{
+    
+    if(page==='1'&&e==='back') return
+    if(page==='5'&&e==='foward') return
+    if(e==='back'){
+      
+      let number=Number(page)
+      number--
+      handleOnChangePages(number.toString())
+    }
+    if(e==='foward'){
+     
+      let number=Number(page)
+      number++
+      handleOnChangePages(number.toString())
+    }
+  }
+  const handleOnChangePages=(e)=>{
+    switch(e){
+      case '1': setPage('1') 
+      return setGames({showGames:props.games.filter((e,i)=>i>=0&&i<20)})
+      case '2': setPage('2') 
+      return props.games.length>20&&setGames({showGames:props.games.filter((e,i)=>i>=20&&i<40)})
+      case '3': setPage('3')
+      return props.games.length>40&&setGames({showGames:props.games.filter((e,i)=>i>=40&&i<60)})
+      case '4': setPage('4')
+      return props.games.length>60&&setGames({showGames:props.games.filter((e,i)=>i>=60&&i<80)})
+      case '5': setPage('5') 
+      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=80&&i<100)})
+      
+      default: return 
+    }
+  }
   const changeBottonGamesToShow=()=>{
     if(gamesToShow.flag==='all'){
       setGamesToShow({flag:'api',message:'mostrando juegos de la red'})
@@ -71,7 +116,7 @@ function ShowGames(props) {
   }
   const handleOnClick=(id)=>{
     props.getGame(id)
-    history.push("/videogame/detail")
+    history.push("/detail")
   }
   const handleDelete=(id,name)=>{
     props.deleteGame(id)
@@ -84,7 +129,7 @@ function ShowGames(props) {
     return (
         <div className={GamesStyle.games}>
             {props.loading===true&&(<div className={GamesStyle.loading}></div>)}
-            {props.games[0]&&(<div className={GamesStyle.sortBy}>
+            {Games.showGames.length>0&&(<div className={GamesStyle.sortBy}>
                 <button
                 onClick={()=>sortBy()}
                 >{sort}</button>
@@ -95,10 +140,32 @@ function ShowGames(props) {
                 onClick={()=>changeBottonGamesToShow()}
                 >{gamesToShow.message}</button>
               </div>)}
-            {props.games[0]&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
+            {Games.showGames.length>0&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
+
+            { Games.showGames.length>0&&<div 
+              className={GamesStyle.searchBarPagesFirst}>
+              <label onClick={()=>handleOnChangePagesArrow('back')}> {`<<-  `} </label>
+              <label  >1.</label>
+              <input type="radio" value="1" name="rate" id="rate-5" checked={page === '1'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}
+              />
+              <label  >2.</label>
+              <input type="radio" value="2" name="rate" id="rate-4" checked={page === '2'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}/>
+              <label  >3.</label>
+              <input type="radio" value="3" name="rate" id="rate-3" checked={page === '3'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}/>
+              <label  >4.</label>
+              <input type="radio" value="4" name="rate" id="rate-2" checked={page === '4'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}/>
+              <label  >5.</label>
+              <input type="radio" value="5" name="rate" id="rate-1" checked={page === '5'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}/>
+              <label onClick={()=>handleOnChangePagesArrow('foward')}>{`  ->>`}</label>
+            </div>}
             <div className={GamesStyle.container}>
-            {props.games.map((e,i)=>{
-                return(props.games)&&gamesToShowFn(e.id)&&(
+            {Games.showGames.length>0&&Games.showGames.map((e,i)=>{
+                return(Games.showGames)&&gamesToShowFn(e.id)&&(
                     <div className={GamesStyle.cardContainer}
                       key={i}>
                       <div className={GamesStyle.card} 
@@ -142,9 +209,23 @@ function ShowGames(props) {
                         </button>)}
                       </div> 
                   </div>
+                  
                 )
             })}
             </div>
+              {/* { Games.showGames.length>0&&<div onChange={(e)=>handleOnChangePages(e)}
+                className={GamesStyle.searchBarPagesLast}>
+                <label  >1.</label>
+                <input type="radio" value="1" name="rate" id="rate-5" />
+                <label  >2.</label>
+                <input type="radio" value="2" name="rate" id="rate-4" />
+                <label  >3.</label>
+                <input type="radio" value="3" name="rate" id="rate-3" />
+                <label  >4.</label>
+                <input type="radio" value="4" name="rate" id="rate-2" />
+                <label  >5.</label>
+                <input type="radio" value="5" name="rate" id="rate-1" />
+              </div>} */}
         </div>
     )
 

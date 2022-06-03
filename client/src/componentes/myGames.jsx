@@ -77,7 +77,7 @@ function MyGames(props) {
   }
   const handleOnClick=(id)=>{
     props.getGame(id)
-    history.push("/videogame/detail")
+    history.push("/detail")
   }
   const handleDelete=(id,name)=>{
     props.deleteGame(id)
@@ -138,8 +138,7 @@ function MyGames(props) {
               {(flag!==0||props.platform||props.genre)&&(<div className={myGamesStyle.sortBy}>
                 <button
                 onClick={()=>sortBy()}
-                >{sort}</button></div>)}
-                {(flag!==0||props.platform||props.genre)&&(<div className={myGamesStyle.sortBy}>
+                >{sort}</button>
                 <button
                 onClick={()=>sortReverse()}
                 >{reverse}</button></div>)}
@@ -178,7 +177,7 @@ function MyGames(props) {
                             </button>
                             <button onClick={()=> handleDelete(e.id,e.name)}
                             >
-                              Eliminar
+                              X
                             </button>
                           </div>
                           )}

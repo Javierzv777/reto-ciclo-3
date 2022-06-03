@@ -2,7 +2,6 @@
 import navGamesStyle from './navbarGames.module.css';
 import { NavLink,Route } from 'react-router-dom'
 import MyGames from './myGames';
-import ShowGame from './showGame';
 import Update from './update';
 import CreateGame from './createGame';
 
@@ -47,9 +46,7 @@ function NavbarGames(props){
                 <Route exact path='/videogame/myGames'>
                     <MyGames/>
                 </Route>
-                <Route exact path='/videogame/detail'>
-                    <ShowGame/>
-                </Route>
+                
                 <Route exact path='/videogame/create'>
                     <CreateGame/>
                 </Route>

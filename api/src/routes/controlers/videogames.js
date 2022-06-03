@@ -5,6 +5,25 @@ const {Videogame, Genre}=require('./../../db')
 const {Op}=require('sequelize')
 
 
+const getApiInfo= async ()=>{
+    const videogames=[]
+    let url=`https://api.rawg.io/api/games?key=${API_KEY}`;
+    for (let i=0;i<=5;i++){
+        const pages= await axios.get(url);
+        pages.data.results.forEach(e=>{
+            videogames.push({
+                id:e.id,
+                name:e.name,
+                image:e.background_image,
+                rating:e.rating,
+                genres:[...e.genres],
+            })
+        })
+        url=pages.data.next;
+    }
+    return videogames;
+}
+
 async function videogames(req,res){
     const {name}=req.query
     let list=[]
@@ -18,7 +37,7 @@ async function videogames(req,res){
                 through: { atributes: [] },
                 as: 'genres'
             }}).catch(e=> {throw Error(e.message)}),
-            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`).then(response=>response.data.results).catch(e=> res.status(404).send(e.message))
+            getApiInfo()
         ],()=>{})
         .then(arrQuery=> {
             arrQuery[0].forEach(e=>{
@@ -29,7 +48,7 @@ async function videogames(req,res){
                 if(listName.includes(e.name)){
                     list.push({id:e.id,name:e.name})
                 }else{
-                    query.push({image:e.background_image,name:e.name, id: e.id,rating:e.rating,genres:[...e.genres]})
+                    query.push({image:e.image,name:e.name, id: e.id,rating:e.rating,genres:[...e.genres]})
                 }
             })
         res.send({query,list})
