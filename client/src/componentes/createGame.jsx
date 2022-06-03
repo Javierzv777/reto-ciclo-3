@@ -16,7 +16,8 @@ function CreateGame(props){
         description:'',
         platforms:[{name:''}],
         genres:[{name:''}],
-        rating:[]
+        rating:[],
+        released:''
 
      })
     const [alert, setAlert]=useState({
@@ -47,11 +48,18 @@ function CreateGame(props){
             description:'',
             platforms:[{name:''}],
             genres:[{name:''}],
-            rating:[]
+            rating:[],
+            released:''
             })))
             setAlert({...alert,greenFlag:false})
             setAlert({...alert,greenFlag:true})
         }
+    }
+    function handleChangeReleased(e){
+        setContent((oldState)=>({
+            ...content,[e.target.name]:e.target.value
+        }))
+        
     }
      function handleChange(e){
         setContent((oldState)=>({
@@ -223,8 +231,19 @@ function CreateGame(props){
                                 </div>
                             )   
                         })}
+                        
                          <span className={createStyle.alert} style={alert.genres?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos un género</span> 
                     </span>
+                    <div className={createStyle.released}>
+                        <label htmlFor="">lanzamiento:</label>
+                        <div>
+                            <input 
+                            onChange={e=>handleChangeReleased(e)}
+                            name='released'
+                            value={content.released}
+                            type="date" />
+                        </div>
+                    </div>
                 </div>    
                 <span>
                     <button className={createStyle.submit} 

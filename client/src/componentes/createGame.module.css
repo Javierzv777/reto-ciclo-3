@@ -75,18 +75,23 @@
 .inputPlatforms{
    
    display: inline-block;
+   margin-bottom: 2rem;
   
 }
 .inputGenres{
     margin-left: 1em;
     display: inline-block;
     margin-right: 6rem;
+    margin-bottom: 2rem;
 }
 .inputPlatformsGenres{
     display: flex;
     /* align-items: top; */
     float:left;
     position:relative;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    
 }
 .container{
     margin-top: 3rem;
