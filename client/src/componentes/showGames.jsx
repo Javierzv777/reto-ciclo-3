@@ -15,17 +15,48 @@ function ShowGames(props) {
 
   const[sort,setSort]=useState('ordenar por rating')
   const [reverse,setReverse]=useState('Descendente')
+  const [gamesToShow,setGamesToShow]=useState({flag:'all', message:'mostrando todos los juegos'})
  
+  const changeBottonGamesToShow=()=>{
+    if(gamesToShow.flag==='all'){
+      setGamesToShow({flag:'api',message:'mostrando juegos de la red'})
+      return
+    }
+    if(gamesToShow.flag==='api'){
+      setGamesToShow({flag:'db',message:'mostrando juegos guardados'})
+      return
+    }
+    if(gamesToShow.flag==='db'){
+      setGamesToShow({flag:'all',message:'mostrando todos los juegos'})
+      return
+    }
+  }
+  const gamesToShowFn=(id)=>{
+    if(gamesToShow.flag==='all'){
+      return true
+    }
+    if(gamesToShow.flag==='db'){
+      if(typeof id==='string'){
+        return true
+      }
+    }
+    if(gamesToShow.flag==='api'){
+      if(typeof id ==='number'){
+        return true
+      }
+    }
+    return false
+  }
   const sortBy=()=>{
    if(sort==='ordenar por rating'){
      props.sortByRating()
      setSort('ordenar por nombre')
-     setReverse('descendente')
+     setReverse('Descendente')
    }
    else{
      props.sortByName()
      setSort('ordenar por rating')
-     setReverse('descendente')
+     setReverse('Descendente')
    }
  }
  const sortReverse=()=>{
@@ -56,27 +87,42 @@ function ShowGames(props) {
             {props.games[0]&&(<div className={GamesStyle.sortBy}>
                 <button
                 onClick={()=>sortBy()}
-                >{sort}</button></div>)}
-                {props.games[0]&&(<div className={GamesStyle.sortBy}>
+                >{sort}</button>
                 <button
                 onClick={()=>sortReverse()}
-                >{reverse}</button></div>)}
+                >{reverse}</button>
+                <button
+                onClick={()=>changeBottonGamesToShow()}
+                >{gamesToShow.message}</button>
+              </div>)}
             {props.games[0]&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
             <div className={GamesStyle.container}>
             {props.games.map((e,i)=>{
-                return(props.games) &&(
+                return(props.games)&&gamesToShowFn(e.id)&&(
                     <div className={GamesStyle.cardContainer}
                       key={i}>
                       <div className={GamesStyle.card} 
                         >
                         <div className={GamesStyle.subtitle}>
                           <span>{e.name}</span>
-                          <div className={GamesStyle.subtitle}>
-                            <div className={GamesStyle.score}>{e.rating}</div>
-                            <div className={GamesStyle.stars}>
-                              <div style={{width:e.rating===0?'0%':`calc(20% * ${e.rating})`}}></div>
-                              <img src={stars} alt={e.rating} title={e.rating}/>
+                          <div className={GamesStyle.subtitle}> 
+                            <div className={GamesStyle.genres}>
+                              <ul>
+                                {e.genres&&e.genres.map((e,i)=>{
+                                  return(<li key={i}>
+                                    {e.name}
+                                    </li>)
+                                })}
+                              </ul>
                             </div>
+                            <span className={GamesStyle.starsContainer}>
+                              <div className={GamesStyle.score}>{e.rating}
+                              </div>
+                              <div className={GamesStyle.stars}>
+                                <div style={{width:e.rating===0?'0%':`calc(20% * ${e.rating})`}}></div>
+                                <img src={stars} alt={e.rating} title={e.rating}/>
+                              </div>
+                            </span>
                           </div>
                           
                         </div>
@@ -86,7 +132,8 @@ function ShowGames(props) {
                         </img>   
                       </div>
                       <div>
-                        {e.id&&e.id.length&&(<button onClick={()=> handleDelete(e.id,e.name)}>
+                        {e.id&&e.id.length&&(<button onClick={()=> handleDelete(e.id,e.name)}
+                        className={GamesStyle.buttonDelete}>
                           Eliminar
                         </button>)}
                         {e.id&&!e.id.length&&(<button onClick={()=> handleSave(e.id,i)}

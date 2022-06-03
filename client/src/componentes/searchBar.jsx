@@ -11,9 +11,10 @@ function SearchBar(props){
     })
 
     const {handleSubmit}= props
+
     const handleChange= function (e){
         setContent({
-           data:e.target.value
+           data : e.target.value
         })
      }
     const handleOnClick=()=>{

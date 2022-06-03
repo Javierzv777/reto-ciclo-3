@@ -21,12 +21,12 @@ function MyGames(props) {
    if(sort==='ordenar por rating'){
      props.sortByRating()
      setSort('ordenar por nombre')
-     setReverse('descendente')
+     setReverse('Descendente')
    }
    else{
      props.sortByName()
      setSort('ordenar por rating')
-     setReverse('descendente')
+     setReverse('Descendente')
    }
  }
  const sortReverse=()=>{

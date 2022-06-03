@@ -1,7 +1,7 @@
 const axios=require('axios')
 const {Promise}=require('bluebird')
 const {API_KEY}=require('../../db.js')
-const {Videogame}=require('./../../db')
+const {Videogame, Genre}=require('./../../db')
 const {Op}=require('sequelize')
 
 
@@ -13,19 +13,23 @@ async function videogames(req,res){
     if(!name){// busqueda sin argumentos
         
         Promise.each([
-            Videogame.findAll().catch(e=> {throw Error(e.message)}),
+            Videogame.findAll({include:{
+                model: Genre, 
+                through: { atributes: [] },
+                as: 'genres'
+            }}).catch(e=> {throw Error(e.message)}),
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`).then(response=>response.data.results).catch(e=> res.status(404).send(e.message))
         ],()=>{})
         .then(arrQuery=> {
             arrQuery[0].forEach(e=>{
-                query.push({image:e.image,name:e.name, id: e.id,rating:e.score})
+                query.push({image:e.image,name:e.name, id: e.id,rating:e.score,genres:[...e.genres]})
                 listName.push(e.name)
             })
             arrQuery[1].forEach(e=>{
                 if(listName.includes(e.name)){
                     list.push({id:e.id,name:e.name})
                 }else{
-                    query.push({image:e.background_image,name:e.name, id: e.id,rating:e.rating})
+                    query.push({image:e.background_image,name:e.name, id: e.id,rating:e.rating,genres:[...e.genres]})
                 }
             })
         res.send({query,list})
