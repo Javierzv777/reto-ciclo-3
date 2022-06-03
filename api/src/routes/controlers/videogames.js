@@ -23,6 +23,24 @@ const getApiInfo= async ()=>{
     }
     return videogames;
 }
+const getApiInfoName= async (name)=>{
+    const videogames=[]
+    let url=`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`;
+    for (let i=0;i<=5;i++){
+        const pages= await axios.get(url);
+        pages.data.results.forEach(e=>{
+            videogames.push({
+                id:e.id,
+                name:e.name,
+                image:e.background_image,
+                rating:e.rating,
+                genres:[...e.genres],
+            })
+        })
+        url=pages.data.next;
+    }
+    return videogames;
+}
 
 async function videogames(req,res){
     const {name}=req.query
@@ -64,7 +82,7 @@ async function videogames(req,res){
                 const newResponse=response.map(e=>e.dataValues)
                 return newResponse
             }),
-            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`).then(response=>response.data.results).catch(e=>console.log(e))
+            getApiInfoName(name)
 
         ],()=>{})
         .then(arrQuery=> {
@@ -76,10 +94,10 @@ async function videogames(req,res){
                 if(listName.includes(e.name)){
                     list.push({id:e.id,name:e.name})
                 }else{
-                    query.push({image:e.background_image,id:e.id,name:e.name,rating:e.rating})
+                    query.push({image:e.image,id:e.id,name:e.name,rating:e.rating})
                 }            
             })
-            query=query.filter((e,i)=>i<15)
+            // query=query.filter((e,i)=>i<15)
             res.send({query,list})
         })
         .catch(e=>res.status(404).send(e.message))    
