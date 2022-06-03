@@ -126,7 +126,7 @@
     color: rgb(198, 240, 232);
     background-color: rgb(1, 93, 213);
     border-radius: 4px;
-    padding: 3px 19px;
+    padding: 3px 22px;
     border: solid 2px rgb(198, 240, 232);
     margin-left: 5px;
     font-weight: 700;
@@ -136,7 +136,7 @@
     color: rgb(230, 209, 90);
     background-color: rgb(3, 65, 21);
     border-radius: 4px;
-    padding: 3px 17px;
+    padding: 3px 19px;
     border: solid 2px brown;
     margin-left: 0px;
     font-weight: 700;
@@ -148,8 +148,7 @@
     border:solid 2px rgb(198, 49, 49);
     color: rgb(234, 191, 191);
     border-radius: 4px;
-    padding: 3px 12px;
-    margin-left: 0px;
+    padding: 3px 6px;
     font-weight: 700;
 }
 

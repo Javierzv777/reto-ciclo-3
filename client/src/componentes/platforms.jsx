@@ -23,7 +23,8 @@ function Platforms(props) {
              props.platforms&&props.platforms.map((e)=>{    
                  return(
                     <div key={e.id}>
-                        <Link onClick={()=>props.getPlatforms(e.id,e.name)}
+                        <Link style={{fontSize:'20px'}}
+                        onClick={()=>props.getPlatforms(e.id,e.name)}
                         to='/videogame/myGames'  >
                             {e.name}
                         </Link>

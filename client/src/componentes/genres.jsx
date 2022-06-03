@@ -28,7 +28,8 @@ function Genres(props) {
                  
                  return(
                     <div key={e.id}>
-                        <Link onClick={()=>props.getGenres(e.id,e.name)} 
+                        <Link style={{fontSize:'20px'}}
+                         onClick={()=>props.getGenres(e.id,e.name)} 
                         to='/videogame/myGames'  >
                             {e.name}
                         </Link>

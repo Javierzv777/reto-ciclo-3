@@ -23,7 +23,7 @@ function ShowGames(props) {
 
 
   useEffect(()=>{
-    setGames({showGames:props.games.filter((e,i)=>i>=0&&i<20)})
+    setGames({showGames:props.games.filter((e,i)=>i>=0&&i<15)})
     handleOnChangePages('1')
     return ()=>{return props.setGames}
   },[props.games,props.setGames])
@@ -32,7 +32,7 @@ function ShowGames(props) {
   const handleOnChangePagesArrow=(e)=>{
     
     if(page==='1'&&e==='back') return
-    if(page==='5'&&e==='foward') return
+    if(page==='7'&&e==='foward') return
     if(e==='back'){
       
       let number=Number(page)
@@ -49,15 +49,19 @@ function ShowGames(props) {
   const handleOnChangePages=(e)=>{
     switch(e){
       case '1': setPage('1') 
-      return setGames({showGames:props.games.filter((e,i)=>i>=0&&i<20)})
+      return setGames({showGames:props.games.filter((e,i)=>i>=0&&i<15)})
       case '2': setPage('2') 
-      return props.games.length>20&&setGames({showGames:props.games.filter((e,i)=>i>=20&&i<40)})
+      return props.games.length>20&&setGames({showGames:props.games.filter((e,i)=>i>=15&&i<30)})
       case '3': setPage('3')
-      return props.games.length>40&&setGames({showGames:props.games.filter((e,i)=>i>=40&&i<60)})
+      return props.games.length>40&&setGames({showGames:props.games.filter((e,i)=>i>=30&&i<45)})
       case '4': setPage('4')
-      return props.games.length>60&&setGames({showGames:props.games.filter((e,i)=>i>=60&&i<80)})
+      return props.games.length>60&&setGames({showGames:props.games.filter((e,i)=>i>=45&&i<60)})
       case '5': setPage('5') 
-      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=80&&i<100)})
+      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=60&&i<75)})
+      case '6': setPage('6') 
+      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=75&&i<90)})
+      case '7': setPage('7') 
+      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=90&&i<105)})
       
       default: return 
     }
@@ -160,6 +164,12 @@ function ShowGames(props) {
               onChange={(e)=>handleOnChangePages(e.target.value)}/>
               <label  >5.</label>
               <input type="radio" value="5" name="rate" id="rate-1" checked={page === '5'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}/>
+              <label  >6.</label>
+              <input type="radio" value="6" name="rate" id="rate-1" checked={page === '6'}
+              onChange={(e)=>handleOnChangePages(e.target.value)}/>
+              <label  >7.</label>
+              <input type="radio" value="7" name="rate" id="rate-1" checked={page === '7'}
               onChange={(e)=>handleOnChangePages(e.target.value)}/>
               <label onClick={()=>handleOnChangePagesArrow('foward')}>{`  ->>`}</label>
             </div>}
