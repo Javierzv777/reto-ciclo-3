@@ -23,10 +23,12 @@ function ShowGames(props) {
 
 
   useEffect(()=>{
-    setGames({showGames:props.games.filter((e,i)=>i>=0&&i<15)})
-    handleOnChangePages('1')
+    
+    if(Games.showGames.length===0){
+      handleOnChangePages('1')
+    }
     return ()=>{return props.setGames}
-  },[props.games,props.setGames])
+  },[props.games])
 
 
   const handleOnChangePagesArrow=(e)=>{

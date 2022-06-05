@@ -1,4 +1,7 @@
 
+.searchBarPagesFirst{
+    text-align: center;
+}
 .sortBy{
     text-align: center;
     margin-top: 1rem;
@@ -180,6 +183,7 @@
     font-weight: 600;
     clear:both;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .games{

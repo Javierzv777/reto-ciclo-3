@@ -1,13 +1,37 @@
 
 import updateStyle from './update.module.css';
-import { updateDetails,getGame,getCacheGame,updateGame} from '../actions/actions';
+import { updateDetails,getGame,getCacheGame,updateGame, updateGenres, updatePlatforms,getGenres,getPlatforms} from '../actions/actions';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { validate } from './validate';
 
 
 function Update(props){
+
+
+
+
+    useEffect(()=>{
+        let arr=[]
+        if(props.game){
+            arr=[...props.game.genres.map(e=> e.name),...props.game.platforms.map(e=> e.name)]
+            
+        }
+     
+        props.updateGenres([...props.genres.filter(e=>!arr.includes(e.name))])
+        props.updatePlatforms([...props.platforms.filter(e=>!arr.includes(e.name))])
+       
+
+    },[props.game])
+
+    useEffect(()=>{
+        props.getGenres()
+        props.getPlatforms()
+        
+        // props.updateDetails({...props.game, platforms:[{name:''}],genres:[{name:''}]})
+        // props.updateGenres([...props.genres,{name:aux}])
+    }, [])
 
     const [alert, setAlert]=useState({
         name:false,
@@ -16,7 +40,8 @@ function Update(props){
         platforms:false,
         genres:false,
         redFlag:false,
-        greenFlag:false
+        greenFlag:false,
+       
     })
 
     let history=useHistory()
@@ -49,14 +74,31 @@ function Update(props){
 
     function inputPlatforms(num){
         num&&props.updateDetails({...props.game,platforms:[...props.game.platforms,{name:''}]})
-        !num&&props.game.platforms.length>1&&props.updateDetails({...props.game,platforms:props.game.platforms.slice(0,-1)})
+        if(!num&&props.game.platforms.length>1){
+            let aux=props.game.platforms[props.game.platforms.length-1].name
+            if(aux){
+                props.updatePlatforms([...props.platforms,{name:aux}])
+            }
+            props.updateDetails({...props.game,platforms:props.game.platforms.slice(0,-1)})
+        }
+
     }
     function inputGenres(num){
         num&&props.updateDetails({...props.game,genres:[...props.game.genres,{name:''}]})
-        !num&&props.game.genres.length>1&&props.updateDetails({...props.game,genres:props.game.genres.slice(0,-1)})
+        if(!num&&props.game.genres.length>1){
+           
+            let aux=props.game.genres[props.game.genres.length-1].name
+            if(aux){
+                props.updateGenres([...props.genres,{name:aux}])
+            }
+            props.updateDetails({...props.game,genres:props.game.genres.slice(0,-1)})
+        }
+
     }
     function handlePlatformsChange(e){
         const platforms = [...props.game.platforms];
+        let aux=props.game.platforms[e.target.id][e.target.dataset.name]
+        props.updatePlatforms([...props.platforms.filter(platforms=>platforms.name!==e.target.value),{name:aux}])
         platforms[e.target.id][e.target.dataset.name] = e.target.value;
         props.updateDetails({...props.game,platforms:[...platforms]});
         // validate
@@ -65,7 +107,10 @@ function Update(props){
            },'platforms')})
     }
     function handleGenresChange(e){
+       
         const genres = [...props.game.genres];
+        let aux=props.game.genres[e.target.id][e.target.dataset.name]
+        props.updateGenres([...props.genres.filter(genre=>genre.name!==e.target.value),{name:aux}])
         genres[e.target.id][e.target.dataset.name] = e.target.value;
         props.updateDetails({...props.game,genres:[...genres]});
             // validate
@@ -124,14 +169,30 @@ function Update(props){
                         {props.game&&props.game.platforms&&props.game.platforms.map((e,i)=>{
                             return(
                                 <div key={i}>
-                                    <input
-                                        type="text"
-                                        name={`platforms-${i}`}
-                                        id={i}
-                                        data-name="name"
-                                        value={e.name}
-                                        onChange={(e)=>handlePlatformsChange(e)}
-                                    />
+                                     <select  
+                                 name={`platforms-${i}`}
+                                 id={i}
+                                 data-name="name"
+                                 value={e.name} 
+                                 onChange={(e)=>handlePlatformsChange(e)}>
+                                
+                                    <option disabled value=""  >__Plataformas
+                                    </option>
+                                    {[...props.platforms&&props.platforms.map((platforms,id)=>{
+                                        return(<option key={id}
+                                       
+                                        
+                                        >{platforms.name}
+                                        </option>
+                                        )
+                                    })
+                                    ,(<option key={props.platforms.length}
+                                       
+                                        
+                                        >{e.name}
+                                        </option>
+                                        )]}
+                                </select>
                                 </div>
                             )   
                         })}
@@ -149,14 +210,28 @@ function Update(props){
                         {props.game&&props.game.genres&&props.game.genres.map((e,i)=>{
                             return(
                                 <div key={i}>
-                                    <input
-                                        type="text"
-                                        name={`genres-${i}`}
-                                        id={i}
-                                        data-name="name"
-                                        value={e.name}
-                                        onChange={(e)=>handleGenresChange(e)}
-                                    />
+                                    <select  
+                                     name={`genres-${i}`}
+                                     id={i}
+                                     data-name="name"
+                                     value={e.name} 
+                                     onChange={(e)=>handleGenresChange(e)}>
+                                    
+                                        <option disabled value=""  >__Géneros
+                                        </option>
+                                        {[...props.genres&&props.genres.map((genres,id)=>{
+                                            return(<option key={id}
+                                            >{genres.name}
+                                            </option>
+                                            )
+                                        })
+                                        ,(<option key={props.genres.length}
+                                           
+                                            
+                                            >{e.name}
+                                            </option>
+                                            )]}
+                                    </select>
                                 </div>
                             )   
                         })}
@@ -190,6 +265,8 @@ function Update(props){
 export function mapStateToProps(state) {
     return {
       game: state.game,
+      genres:state.genres,
+      platforms:state.platforms
     };
   }
   
@@ -198,7 +275,11 @@ export function mapStateToProps(state) {
         updateDetails:(g)=>dispatch(updateDetails(g)),
         getGame:(g)=>dispatch(getGame(g)),
         getCache:()=>dispatch(getCacheGame()),
-        updateGame:(g,id)=>dispatch(updateGame(g,id))
+        updateGame:(g,id)=>dispatch(updateGame(g,id)),
+        getGenres: (g)=>dispatch(getGenres(g)),
+        getPlatforms: (p)=>dispatch(getPlatforms(p)),
+        updateGenres:(arr)=>dispatch(updateGenres(arr)),
+        updatePlatforms:(arr)=>dispatch(updatePlatforms(arr))
     };
   }
   export default connect(mapStateToProps,mapDispatchToProps)(Update)
