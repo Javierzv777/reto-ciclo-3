@@ -87,14 +87,14 @@ async function videogames(req,res){
         ],()=>{})
         .then(arrQuery=> {
             arrQuery[0].forEach(e=>{
-                query.push({image:e.image,id:e.id,name:e.name,rating:e.score})   
+                query.push({image:e.image,id:e.id,name:e.name,rating:e.score,genres:[...e.genres]})   
                 listName.push(e.name)
             })
             arrQuery[1].forEach(e=>{
                 if(listName.includes(e.name)){
                     list.push({id:e.id,name:e.name})
                 }else{
-                    query.push({image:e.image,id:e.id,name:e.name,rating:e.rating})
+                    query.push({image:e.image,id:e.id,name:e.name,rating:e.rating,genres:[...e.genres]})
                 }            
             })
             // query=query.filter((e,i)=>i<15)

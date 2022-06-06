@@ -70,7 +70,8 @@ async function createVideogame(req, res) {
     const genreNames = genres.map(e => e.name)
     const platformsCreate=platforms.filter(e=>e.name!=='')
 
-    if (!Array.isArray(rating)) throw Error('rating debe ser un arreglo')
+     
+    if (!Array.isArray(rating)) return res.status(404).send('rating debe ser un arreglo')
     
     const [gameCreated, created] = await Videogame.findOrCreate({//crea el juego
         where: { name },// devuelve el juego si ya existe y created sigue en "false"

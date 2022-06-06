@@ -7,7 +7,7 @@ class ShowGame extends React.Component {
     constructor(props){
         super(props)
         this.state = { counter: 0 };
-        console.log(props)
+
         
     }
    componentWillUnmount(){
@@ -45,10 +45,10 @@ class ShowGame extends React.Component {
                                 <span className={gameStyle.platforms}>
                                     <h5>Plataformas</h5>
                                     <ul>
-                                        {this.props.game.platforms.map(e=>{
+                                        {this.props.game.platforms.map((e,i)=>{
                                             return(
                                                 
-                                                    <li key={e.id}>{e.name}</li>
+                                                    <li key={i}>{e.name}</li>
                                             )
                                         })}
                                     </ul>
@@ -56,10 +56,10 @@ class ShowGame extends React.Component {
                                 <span className={gameStyle.genres}>
                                     <h5>Géneros</h5>
                                         <ul>                                            
-                                            {this.props.game.genres.map(e=>{
+                                            {this.props.game.genres.map((e,i)=>{
                                                 return(
                                                     
-                                                        <li key={e.id}>{e.name}</li>
+                                                        <li key={i}>{e.name}</li>
                                                 )
                                             })}
                                         </ul>

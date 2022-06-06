@@ -25,13 +25,7 @@ function Update(props){
 
     },[props.game])
 
-    useEffect(()=>{
-        props.getGenres()
-        props.getPlatforms()
-        
-        // props.updateDetails({...props.game, platforms:[{name:''}],genres:[{name:''}]})
-        // props.updateGenres([...props.genres,{name:aux}])
-    }, [])
+ 
 
     const [alert, setAlert]=useState({
         name:false,

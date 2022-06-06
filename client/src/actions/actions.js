@@ -20,7 +20,11 @@ export const SORT_BY_NAME='SORT_BY_NAME'
 export const SORT_BY_RATING='SORT_BY_RATING'
 export const REVERSE='REVERSE'
 export const SET_PAGES='SET_PAGES'
+export const SET_SHOW_GAMES='SET_SHOW_GAMES'
 
+export function setShowGames(arr){
+    return {type: SET_SHOW_GAMES, payload: arr}
+}
 export function setPages(num){
     return {type: SET_PAGES, payload: num}
 }

@@ -1,18 +1,21 @@
 
-import {SET_PAGES,SET_GAMES,SET_GAME,SEARCH_BY_GENRE,SEARCH_BY_PLATFORM,CREATE_GAME, UPDATE_GAME, GET_GAMES, GET_GAME, ADD_GAME, REMOVE_GAME, UPDATE_DETAILS,GET_CACHE_GAME, CLEAR_LIST, GET_PLATFORMS, GET_GENRES, START_LOADING, UPDATE_RATING, SORT_BY_NAME, SORT_BY_RATING, REVERSE} from './../actions/actions'
+import {SET_PAGES,SET_GAMES,SET_GAME,SEARCH_BY_GENRE,SEARCH_BY_PLATFORM,CREATE_GAME, UPDATE_GAME, GET_GAMES, GET_GAME, ADD_GAME, REMOVE_GAME, UPDATE_DETAILS,GET_CACHE_GAME, CLEAR_LIST, GET_PLATFORMS, GET_GENRES, START_LOADING, UPDATE_RATING, SORT_BY_NAME, SORT_BY_RATING, REVERSE, SET_SHOW_GAMES} from './../actions/actions'
+import { platformsList } from '../componentes/platformsList';
+import {genresList} from '../componentes/genresList'
 
 const initialState={
     games:[],
-    platforms:[],
+    platforms:platformsList,
     cacheGame:undefined,
     game:undefined,
-    genres:[],
+    genres:genresList,
     savedGames:[],
     flag:true,
     platform:undefined,
     genre:undefined,
     loadingFlag:false,
-    pages:'1'
+    pages:'1',
+    showGames:[]
 }
 
 function compare_lname( a, b )
@@ -28,6 +31,7 @@ function compare_lname( a, b )
 export  const reducer=(state=initialState, action)=>{
 
     switch(action.type){
+        case SET_SHOW_GAMES: return {...state, showGames:[...action.payload]}
         case SET_PAGES: return {...state,pages:action.payload }
         case REVERSE: return {...state, games:[...state.games.reverse()]}
         case SORT_BY_NAME: state.games.sort(compare_lname) 

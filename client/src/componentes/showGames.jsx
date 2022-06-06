@@ -1,6 +1,6 @@
 import GamesStyle from './showGames.module.css';
 import {connect} from 'react-redux'
-import {reverseFn ,sortByName,sortByRating,getGame,saveGame,deleteGame, clearList,setGames,setPages} from '../actions/actions'
+import {reverseFn ,sortByName,sortByRating,getGame,saveGame,deleteGame, clearList,setGames,setPages,setShowGames} from '../actions/actions'
 import { useHistory} from 'react-router-dom'
 import stars from './../cincoEstrellas.png'
 import {useState,useEffect} from 'react'
@@ -17,18 +17,19 @@ function ShowGames(props) {
   const[sort,setSort]=useState('ordenar por rating')
   const [reverse,setReverse]=useState('Descendente')
   const [gamesToShow,setGamesToShow]=useState({flag:'all', message:'mostrando todos los juegos'})
-  const [Games, setGames]=useState({ showGames:[]})
-  const [page, setPage]=useState('1')
+
  
 
 
   useEffect(()=>{
     
-    if(Games.showGames.length===0){
-      handleOnChangePages(props.pages)
+    if(props.showGames.length===0){
+      handleOnChangePages('1')
     }
+
     return ()=>{return props.setGames}
   },[props.games])
+
 
 
   const handleOnChangePagesArrow=(e)=>{
@@ -51,19 +52,19 @@ function ShowGames(props) {
   const handleOnChangePages=(e)=>{
     switch(e){
       case '1': props.setPages('1') 
-      return setGames({showGames:props.games.filter((e,i)=>i>=0&&i<15)})
+      return props.games.length>0&&props.setShowGames([...props.games.filter((e,i)=>i>=0&&i<15)])
       case '2': props.setPages('2'); 
-      return props.games.length>20&&setGames({showGames:props.games.filter((e,i)=>i>=15&&i<30)})
+      return props.games.length>20&&props.setShowGames([...props.games.filter((e,i)=>i>=15&&i<30)])
       case '3': props.setPages('3'); 
-      return props.games.length>40&&setGames({showGames:props.games.filter((e,i)=>i>=30&&i<45)})
+      return props.games.length>40&&props.setShowGames([...props.games.filter((e,i)=>i>=30&&i<45)])
       case '4': props.setPages('4')
-      return props.games.length>60&&setGames({showGames:props.games.filter((e,i)=>i>=45&&i<60)})
+      return props.games.length>60&&props.setShowGames([...props.games.filter((e,i)=>i>=45&&i<60)])
       case '5': props.setPages('5') 
-      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=60&&i<75)})
+      return props.games.length>80&&props.setShowGames([...props.games.filter((e,i)=>i>=60&&i<75)])
       case '6': props.setPages('6') 
-      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=75&&i<90)})
+      return props.games.length>80&&props.setShowGames([...props.games.filter((e,i)=>i>=75&&i<90)])
       case '7': props.setPages('7') 
-      return props.games.length>80&&setGames({showGames:props.games.filter((e,i)=>i>=90&&i<105)})
+      return props.games.length>80&&props.setShowGames([...props.games.filter((e,i)=>i>=90&&i<105)])
       
       default: return 
     }
@@ -139,7 +140,7 @@ function ShowGames(props) {
     return (
         <div className={GamesStyle.games}>
             {props.loading===true&&(<div className={GamesStyle.loading}></div>)}
-            {Games.showGames.length>0&&(<div className={GamesStyle.sortBy}>
+            {props.showGames.length>0&&(<div className={GamesStyle.sortBy}>
                 <button
                 onClick={()=>sortBy()}
                 >{sort}</button>
@@ -150,9 +151,9 @@ function ShowGames(props) {
                 onClick={()=>changeBottonGamesToShow()}
                 >{gamesToShow.message}</button>
               </div>)}
-            {Games.showGames.length>0&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
+            {props.showGames.length>0&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
 
-            { Games.showGames.length>0&&<div 
+            { props.showGames.length>0&&<div 
               className={GamesStyle.searchBarPagesFirst}>
               <label onClick={()=>handleOnChangePagesArrow('back')}> {`<<-  `} </label>
               <label  >1.</label>
@@ -175,13 +176,13 @@ function ShowGames(props) {
               <input type="radio" value="6" name="rate" id="rate-1" checked={props.pages === '6'}
               onChange={(e)=>handleOnChangePages(e.target.value)}/>
               <label  >7.</label>
-              <input type="radio" value="7" name="rate" id="rate-1" checked={page === '7'}
+              <input type="radio" value="7" name="rate" id="rate-1" checked={props.pages === '7'}
               onChange={(e)=>handleOnChangePages(e.target.value)}/>
               <label onClick={()=>handleOnChangePagesArrow('foward')}>{`  ->>`}</label>
             </div>}
             <div className={GamesStyle.container}>
-            {Games.showGames.length>0&&Games.showGames.map((e,i)=>{
-                return(Games.showGames)&&gamesToShowFn(e.id)&&(
+            {props.showGames.length>0&&props.showGames.map((e,i)=>{
+                return(props.showGames)&&gamesToShowFn(e.id)&&(
                     <div className={GamesStyle.cardContainer}
                       key={i}>
                       <div className={GamesStyle.card} 
@@ -253,7 +254,8 @@ export function mapStateToProps(state) {
       game: state.game,
       saved: state.savedGames,
       loading: state.loadingFlag,
-      pages:state.pages
+      pages:state.pages,
+      showGames: state.showGames
     };
   }
   
@@ -267,7 +269,8 @@ export function mapStateToProps(state) {
       sortByName:()=>dispatch(sortByName()),
       sortByRating:()=>dispatch(sortByRating()),
       reverseFn:()=>dispatch(reverseFn()),
-      setPages: (num)=>dispatch(setPages(num))
+      setPages: (num)=>dispatch(setPages(num)),
+      setShowGames:(arr)=>dispatch(setShowGames(arr))
     };
   }
   

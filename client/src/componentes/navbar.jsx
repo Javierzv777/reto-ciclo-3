@@ -3,7 +3,7 @@ import navbarStyle from './navbar.module.css';
 import SearchBar from './searchBar';
 import { NavLink } from 'react-router-dom'
 import { useDispatch} from 'react-redux';
-import { getGames,getGenres,getPlatforms, startLoading } from '../actions/actions';
+import { getGames,getGenres,getPlatforms, startLoading, setShowGames } from '../actions/actions';
 
 // ,getGenres
 
@@ -15,6 +15,7 @@ function Navbar(props) {
     const handleSubmit=function(gameName){
          dispatch(getGames(gameName))
          dispatch(startLoading())
+         dispatch(setShowGames([]))
          history.push("/videogames")
          
      }

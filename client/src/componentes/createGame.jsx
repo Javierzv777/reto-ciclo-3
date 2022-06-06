@@ -30,10 +30,7 @@ function CreateGame(props){
         greenFlag:false
     })
 
-    useEffect(()=>{
-        props.getGenres()
-        props.getPlatforms()
-    }, [])
+ 
 
     function handleOnClick(){
        
@@ -73,6 +70,11 @@ function CreateGame(props){
     function handleChangeImage(e){
         setContent((oldState)=>({
             ...content,[e.target.name]:e.target.value
+        }))
+    }
+    function handleOnChangeRating(e){
+        setContent(()=>({
+            ...content, [e.target.name]:[{score:e.target.value}]
         }))
     }
     function inputPlatforms(num){
@@ -242,6 +244,22 @@ function CreateGame(props){
                             name='released'
                             value={content.released}
                             type="date" />
+                        </div>
+                    </div>
+                    <div>
+                        <span>Rating:</span>
+                        <div className={createStyle.starsRateInputs}
+                        onChange={(e)=>handleOnChangeRating(e)}>
+                            <label  >1.</label>
+                            <input type="radio" value="1" name="rating" id="rate-5" />
+                            <label  >2.</label>
+                            <input type="radio" value="2" name="rating" id="rate-4" />
+                            <label  >3.</label>
+                            <input type="radio" value="3" name="rating" id="rate-3" />
+                            <label  >4.</label>
+                            <input type="radio" value="4" name="rating" id="rate-2" />
+                            <label  >5.</label>
+                            <input type="radio" value="5" name="rating" id="rate-1" />
                         </div>
                     </div>
                 </div>    
