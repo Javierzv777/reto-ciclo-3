@@ -19,8 +19,11 @@ export const SET_GAMES='SET_GAMES'
 export const SORT_BY_NAME='SORT_BY_NAME'
 export const SORT_BY_RATING='SORT_BY_RATING'
 export const REVERSE='REVERSE'
+export const SET_PAGES='SET_PAGES'
 
-
+export function setPages(num){
+    return {type: SET_PAGES, payload: num}
+}
 export function updatePlatforms(arr){
     return {type:GET_PLATFORMS,payload:[...arr] }
 }
