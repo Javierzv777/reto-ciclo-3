@@ -1,5 +1,9 @@
-
-
+.released{
+    margin-right: 5rem;
+}
+/* .starsRateInputs{
+    margin-left: 7rem;
+} */
 .redFlag{
     display: inline-block;
     position:absolute;

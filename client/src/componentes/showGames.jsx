@@ -131,6 +131,8 @@ function ShowGames(props) {
   }
   const handleDelete=(id,name)=>{
     props.deleteGame(id)
+    // handleOnChangePages('1')
+  
   }
   const handleSave=(id)=>{
     props.saveGame(id)

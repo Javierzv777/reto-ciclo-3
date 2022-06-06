@@ -39,17 +39,29 @@ function CreateGame(props){
             setAlert({...alert,redFlag:true})
         }else{
             props.createGame(content)
-            .then(()=> setContent((oldState)=>({
-            name: '',
-            image:'',
-            description:'',
-            platforms:[{name:''}],
-            genres:[{name:''}],
-            rating:[],
-            released:''
-            })))
-            setAlert({...alert,greenFlag:false})
-            setAlert({...alert,greenFlag:true})
+            .then(()=> {
+                setContent((oldState)=>({
+                    name: '',
+                    image:'',
+                    description:'',
+                    platforms:[{name:''}],
+                    genres:[{name:''}],
+                    rating:[],
+                    released:''
+                }))
+                setAlert(()=>({
+                    name:true,
+                    image:false,
+                    description:'Debe tener una descripción',
+                    platforms:true,
+                    genres:true,
+                    redFlag:false,
+                    greenFlag:false
+                }))
+            })
+            .then(()=>setAlert((oldAlert)=>{return {...oldAlert,greenFlag:true}}))
+            
+           
         }
     }
     function handleChangeReleased(e){
@@ -246,9 +258,9 @@ function CreateGame(props){
                             type="date" />
                         </div>
                     </div>
-                    <div>
+                    <div className={createStyle.starsRateInputs}>
                         <span>Rating:</span>
-                        <div className={createStyle.starsRateInputs}
+                        <div 
                         onChange={(e)=>handleOnChangeRating(e)}>
                             <label  >1.</label>
                             <input type="radio" value="1" name="rating" id="rate-5" />

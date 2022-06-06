@@ -85,11 +85,12 @@ export  const reducer=(state=initialState, action)=>{
               foundGame=foundGame.name
             }else{
              state.games=[...state.games.filter(f=>f.id!==e.id)] 
+             state.showGames=[...state.showGames.filter(f=>f.id!==e.id)]
             }
             
             }
           }) 
-        return {...state, games: [...state.games], savedGames:state.savedGames.filter(e=>e.name!==foundGame) }
+        return {...state, games: [...state.games], savedGames:state.savedGames.filter(e=>e.name!==foundGame),showGames:[...state.showGames] }
       
         case UPDATE_DETAILS: return {...state, game: {...action.payload}}
         case GET_CACHE_GAME: return {...state,game:{...state.cacheGame}}
