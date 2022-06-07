@@ -71,7 +71,14 @@ async function createVideogame(req, res) {
     const platformsCreate=platforms.filter(e=>e.name!=='')
 
      //[{score:''}]
-    if (!Array.isArray(rating)) return res.status(404).send('rating debe ser un arreglo')
+    if (((rating&&!Array.isArray(rating))||(rating&&Array.isArray(rating)&&typeof rating[0].score!=='number'))
+    ||((genres&&!Array.isArray(genres))||(genres&&Array.isArray(genres)&&typeof genres[0].name!=='string'))
+    ||((platforms&&!Array.isArray(platforms))||(platforms&&Array.isArray(platforms)&&typeof platforms[0].name!=='string'))
+    ||(!name||typeof name!=="string")
+    ||(image&&typeof image!=="string")
+    ||(!description||typeof description!=="string")){
+        return res.status(404).send('debe introducir datos correctos')
+    } 
     
     const [gameCreated, created] = await Videogame.findOrCreate({//crea el juego
         where: { name },// devuelve el juego si ya existe y created sigue en "false"

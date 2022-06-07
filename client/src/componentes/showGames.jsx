@@ -32,6 +32,7 @@ function ShowGames(props) {
 
 
 
+
   const handleOnChangePagesArrow=(e)=>{
     
     if(props.pages==='1'&&e==='back') return
