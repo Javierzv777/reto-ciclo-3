@@ -27,17 +27,22 @@ const getApiInfoName= async (name)=>{
     const videogames=[]
     let url=`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`;
     for (let i=0;i<=5;i++){
-        const pages= await axios.get(url);
-        pages.data.results.forEach(e=>{
-            videogames.push({
-                id:e.id,
-                name:e.name,
-                image:e.background_image,
-                rating:e.rating,
-                genres:[...e.genres],
+        let pages
+        if(url){
+            pages= await axios.get(url);
+            pages.data.results.forEach(e=>{
+                videogames.push({
+                    id:e.id,
+                    name:e.name,
+                    image:e.background_image,
+                    rating:e.rating,
+                    genres:Array.isArray(e.genres)?[...e.genres]:[],
+                })
             })
-        })
-        url=pages.data.next;
+            url=pages.data.next;
+        }
+        
+        
     }
     return videogames;
 }
@@ -87,14 +92,14 @@ async function videogames(req,res){
         ],()=>{})
         .then(arrQuery=> {
             arrQuery[0].forEach(e=>{
-                query.push({image:e.image,id:e.id,name:e.name,rating:e.score,genres:[...e.genres]})   
+                query.push({image:e.image,id:e.id,name:e.name,rating:e.score,genres:Array.isArray(e.genres)?[...e.genres]:[]})   
                 listName.push(e.name)
             })
             arrQuery[1].forEach(e=>{
                 if(listName.includes(e.name)){
                     list.push({id:e.id,name:e.name})
                 }else{
-                    query.push({image:e.image,id:e.id,name:e.name,rating:e.rating,genres:[...e.genres]})
+                    query.push({image:e.image,id:e.id,name:e.name,rating:e.rating,genres:Array.isArray(e.genres)?[...e.genres]:[]})
                 }            
             })
             // query=query.filter((e,i)=>i<15)

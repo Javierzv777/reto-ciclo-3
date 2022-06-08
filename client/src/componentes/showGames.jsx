@@ -72,7 +72,7 @@ function ShowGames(props) {
   }
   const changeBottonGamesToShow=()=>{
     if(gamesToShow.flag==='all'){
-      setGamesToShow({flag:'api',message:'mostrando juegos de la red'})
+      setGamesToShow({flag:'api',message:'mostrando juegos de la apiweb'})
       return
     }
     if(gamesToShow.flag==='api'){

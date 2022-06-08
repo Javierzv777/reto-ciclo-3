@@ -229,15 +229,11 @@ function CreateGame(props){
                                         </option>
                                         {[...props.genres&&props.genres.map((genres,id)=>{
                                             return(<option key={id}
-                                           
-                                            
                                             >{genres.name}
                                             </option>
                                             )
                                         })
                                         ,(<option key={props.genres.length}
-                                           
-                                            
                                             >{e.name}
                                             </option>
                                             )]}
