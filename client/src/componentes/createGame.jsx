@@ -64,6 +64,10 @@ function CreateGame(props){
            
         }
     }
+    useEffect(()=>{
+        props.getGenres()
+        props.getPlatforms()
+    },[])
     function handleChangeReleased(e){
         setContent((oldState)=>({
             ...content,[e.target.name]:e.target.value

@@ -69,9 +69,9 @@ async function createVideogame(req, res) {
     const { name, image, description, released, genres, platforms,rating } = req.body
     const genreNames = genres.map(e => e.name)
     const platformsCreate=platforms.filter(e=>e.name!=='')
-
+    
      //[{score:''}]
-    if (((rating&&!Array.isArray(rating))||(rating&&Array.isArray(rating)&&typeof rating[0].score!=='number'))
+    if (((rating&&!Array.isArray(rating))||!rating)
     ||((genres&&!Array.isArray(genres))||(genres&&Array.isArray(genres)&&typeof genres[0].name!=='string'))
     ||((platforms&&!Array.isArray(platforms))||(platforms&&Array.isArray(platforms)&&typeof platforms[0].name!=='string'))
     ||(!name||typeof name!=="string")
