@@ -115,9 +115,9 @@ export function createGame(payload) {
         return axios.post(`http://localhost:3001/videogame/`, {
             ...payload
         })
-            .then((response) => {
-            })
-            .catch(e => console.log(e));
+        .then((response) => {console.log(response)
+        })
+        .catch(e => console.log(e));
     }
 
 }

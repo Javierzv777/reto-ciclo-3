@@ -1,7 +1,7 @@
 import {useHistory} from 'react-router-dom';
 import navbarStyle from './navbar.module.css';
 import SearchBar from './searchBar';
-import { NavLink } from 'react-router-dom'
+import { NavLink,Route } from 'react-router-dom'
 import { useDispatch} from 'react-redux';
 import { getGames,getGenres,getPlatforms, startLoading, setShowGames } from '../actions/actions';
 
@@ -12,7 +12,8 @@ function Navbar(props) {
     let history=useHistory();
 
 
-    const handleSubmit=function(gameName){
+    const handleSubmit=function(gameName,e    ){
+        e.preventDefault()
          dispatch(getGames(gameName))
          dispatch(startLoading())
          dispatch(setShowGames([]))
@@ -32,14 +33,14 @@ function Navbar(props) {
                     Inicio
                 </span>
             </NavLink>
-            <NavLink to='/Videogame' 
+            <NavLink to='/Videogame/myGames' 
              activeStyle={{
                 fontWeight: "bold",
                 color: "red"
               }}
             >
                 <span className={navbarStyle.games}>
-                    Juegos
+                    Mis Juegos
                 </span>
             </NavLink>
             <NavLink onClick={()=> dispatch(getGenres())}
@@ -62,13 +63,16 @@ function Navbar(props) {
                     Plataformas
                 </span>
             </NavLink>
-            <span className={navbarStyle.searchBar}>
-                < SearchBar 
-                    handleSubmit={handleSubmit}
-                    searchButton={'Buscar'} 
-                    placeHolder={'...Buscar Juegos '}
-                />
-            </span>
+            <Route exact path='/videogames'>
+                <span className={navbarStyle.searchBar}>
+                    < SearchBar 
+                        handleSubmit={handleSubmit}
+                        searchButton={'Buscar'} 
+                        placeHolder={'...Buscar Juegos '}
+                    />
+                </span>
+            </Route>
+            
             
         </div>
     )

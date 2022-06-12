@@ -48,7 +48,7 @@
 .starsRateInputs label{
     display: block;
     cursor:pointer;
-    width: 50px;
+    width: 30px;
     
 }
 
@@ -61,7 +61,7 @@
     padding-right: 10rem;
     border-radius: 10px;
     border:solid 4px rgb(239, 244, 82);
-
+    min-width: 10rem;
 }
 
 .qualify{
@@ -76,6 +76,7 @@
     border-radius: 10px;
     box-sizing: border-box;
     z-index: 122;
+    min-width: 10rem;
 }
 
 .rating{

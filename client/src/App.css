@@ -3,11 +3,11 @@
   color:white;
 }
 .App {
-
+  min-width: 15rem;
   text-align: center;
   position:relative;
-  margin-left:10rem;
-  margin-right:10rem;
+  margin-left:10%;
+  margin-right:10%;
   background-color:white;
   min-height: 70em;
   border-radius: 10px 10px;
@@ -21,8 +21,11 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+@media screen and (max-width:600px) {
+  
+}
 @media (prefers-reduced-motion: no-preference) {
+
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }

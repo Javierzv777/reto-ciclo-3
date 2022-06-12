@@ -10,7 +10,7 @@ function NavbarGames(props){
     return (
             <div className={navGamesStyle.container}>
                 <div className={navGamesStyle.containerNav}>
-                    <NavLink to='/videogame/myGames' 
+                    {/* <NavLink to='/videogame/myGames' 
                     activeStyle={{
                         fontWeight: "bold",
                         color: "red",
@@ -19,7 +19,7 @@ function NavbarGames(props){
                         <span className={navGamesStyle.link}>
                             Mis juegos
                         </span>
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink 
                     to='/videogame/create' 
                     activeStyle={{

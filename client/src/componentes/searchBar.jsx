@@ -17,21 +17,23 @@ function SearchBar(props){
            data : e.target.value
         })
      }
-    const handleOnClick=()=>{
-        handleSubmit(content)
+    const handleOnClick=(e)=>{
+        handleSubmit(content,e)
     }
     return  (
             
             <div className={searchBarStyle.padding}>
-                       
-                    <input className={searchBarStyle.input}
-                        onChange={e=>handleChange(e)}
-                        type="text"  placeholder={props.placeHolder}></input>
-                    <button className={searchBarStyle.button} 
-                        onClick={()=>handleOnClick()}
-                        >
-                            {props.searchButton}
-                    </button>
+
+                      <form action="" onSubmit={(e)=>handleOnClick(e)}>
+                        <input className={searchBarStyle.input}
+                            onChange={e=>handleChange(e)}
+                            type="text"  placeholder={props.placeHolder}></input>
+                        <button className={searchBarStyle.button} 
+                            onClick={(e)=>handleOnClick(e)}
+                            >
+                                {props.searchButton}
+                        </button>
+                    </form> 
 
 
             </div>

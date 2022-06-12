@@ -4,7 +4,7 @@ import {reverseFn,getGame, deleteGame, saveGame,getGames, clearList,startLoading
 import { useHistory} from 'react-router-dom'
 import SearchBar from './searchBar';
 import stars from './../cincoEstrellas.png'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 
 
@@ -40,11 +40,14 @@ function MyGames(props) {
   }
 }
  let history=useHistory()
+
 //  useEffect(()=>{
+//   // handleSubmit({data:''})
 //   return ()=>{
 //   console.log('unmounted')  
 //     props.setGames()
 //   }
+  
 //   },[])
 
   const handleQualify=(id)=>{
@@ -86,7 +89,8 @@ function MyGames(props) {
     props.getGame(id)
     history.push("/videogame/Update")
   }
-  const handleSubmit=function(gameName){
+  const handleSubmit=function(gameName, e){
+    e.preventDefault()
     props.getGames(gameName)
     props.startLoading()
   }

@@ -69,12 +69,9 @@ async function createVideogame(req, res) {
     const { name, image, description, released, genres, platforms,rating } = req.body
     const genreNames = genres.map(e => e.name)
     const platformsCreate=platforms.filter(e=>e.name!=='')
-    
-     //[{score:''}]
-    if (((rating&&!Array.isArray(rating))||!rating)
-    ||((genres&&!Array.isArray(genres))||(genres&&Array.isArray(genres)&&typeof genres[0].name!=='string'))
-    ||((platforms&&!Array.isArray(platforms))||(platforms&&Array.isArray(platforms)&&typeof platforms[0].name!=='string'))
-    ||(!name||typeof name!=="string")
+ 
+    if (
+    (!name||typeof name!=="string")
     ||(image&&typeof image!=="string")
     ||(!description||typeof description!=="string")){
         return res.status(404).send('debe introducir datos correctos')
@@ -107,7 +104,7 @@ async function createVideogame(req, res) {
         
         //rectifico si el argumento que recibí como platforms en un arreglo 
             //con elementos
-        Promise.all(
+        platformsCreate.length>0&&Promise.all(
             platformsCreate.map((e) => {
                 return Platform.findOrCreate({ //creo las plataformas si no existen
                     where: { name: e.name },
@@ -128,7 +125,7 @@ async function createVideogame(req, res) {
         
         //creando nuevos items en genres
     
-        Genre.findAll({//agrego las relaciones de Generos con los juegos
+        genreNames.length>0&&Genre.findAll({//agrego las relaciones de Generos con los juegos
             where: {
                 name: { [Op.in]: genreNames }
             }
@@ -198,8 +195,6 @@ async function updateVideogame(req, res) {
                             Platform.findByPk(e[0].id)
                                 .then(e => game.addPlatform(e))//agrego las relaciones con las plataformas
                                 .catch(e => res.status(404).send(e.message))
-                        
-
                     })
 
                 }).catch(e => res.status(404).send(e.message))
