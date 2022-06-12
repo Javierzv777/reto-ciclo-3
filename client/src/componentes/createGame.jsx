@@ -40,6 +40,9 @@ function CreateGame(props){
         }else{
             props.createGame(content)
             .then(()=> {
+                props.updatePlatforms([...props.platforms, ...content.platforms])
+                props.updateGenres([...props.genres, ...content.genres])
+
                 setContent((oldState)=>({
                     name: '',
                     image:'',
@@ -58,6 +61,8 @@ function CreateGame(props){
                     redFlag:false,
                     greenFlag:false
                 }))
+                props.getGenres()
+                props.getPlatforms()
             })
             .then(()=>setAlert((oldAlert)=>{return {...oldAlert,greenFlag:true}}))
             

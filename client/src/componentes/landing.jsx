@@ -2,10 +2,22 @@
 import LandingStyle from './landing.module.css';
 import logo from './../videogame.png'
 import {useState} from 'react'
+import {getGames, startLoading, setShowGames} from '../actions/actions'
+import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 function Landing(props){
-    const [display, setDisplay]=useState({flag:true})
-    const toggle=()=>{
+    let history = useHistory()
+    const dispatch = useDispatch()
+    const [display, setDisplay] = useState({flag:true})
+    const toggle = () => {
+        let payload={
+            data:''
+        }
+        dispatch(getGames(payload))
+        dispatch(startLoading())
+        dispatch(setShowGames([]))
+        history.push("/videogames")
         setDisplay({flag:true?false:true})
     }
     return (

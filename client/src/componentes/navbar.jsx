@@ -23,7 +23,7 @@ function Navbar(props) {
 
     return (
         <div className={navbarStyle.navbar}>
-            <NavLink to='/Home' 
+            <NavLink to='/videogames' 
              activeStyle={{
                 fontWeight: "bold",
                 color: "red"
