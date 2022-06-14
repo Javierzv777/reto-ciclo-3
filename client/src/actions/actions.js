@@ -49,10 +49,10 @@ export function setGames(){
 export function updateRating(id,rating){
     return async function(dispatch){
         if(id){
-            return axios.post(`http://localhost:3001/score/?id=${id}&score=${rating}`)
+            return axios.post(`/score/?id=${id}&score=${rating}`)
             .then((response)=>{
                 
-                return axios.get(`http://localhost:3001/videogame/${id}`)
+                return axios.get(`/videogame/${id}`)
             })
             .then((response)=>{
                 dispatch({type:UPDATE_RATING, payload:response.data.element})  
@@ -69,14 +69,14 @@ export function startLoading(){
 export function getPlatforms(id, name) {
     return async function (dispatch) {
         if (!id) {
-            return axios.get(`http://localhost:3001/platforms/`,)
+            return axios.get(`/platforms/`,)
                 .then((response) => {
                     dispatch({ type: GET_PLATFORMS, payload: response.data });
                 })
                 .catch(e => console.log(e.message));
         }
         if (id) {
-            return axios.get(`http://localhost:3001/platforms/${id}`,)
+            return axios.get(`/platforms/${id}`,)
                 .then((response) => {
                     dispatch({ type: SEARCH_BY_PLATFORM, payload: { data: response.data, name } });
                 })
@@ -87,7 +87,7 @@ export function getPlatforms(id, name) {
 export function getGenres(id, name) {
     return async function (dispatch) {
         if (!id) {
-            return axios.get(`http://localhost:3001/genres/`,)
+            return axios.get(`/genres/`,)
                 .then((response) => {
                     dispatch({ type: GET_GENRES, payload: response.data });
                 })
@@ -95,7 +95,7 @@ export function getGenres(id, name) {
 
         }
         if (id) {
-            return axios.get(`http://localhost:3001/genres/${id}`,)
+            return axios.get(`/genres/${id}`,)
                 .then((response) => {
                     dispatch({ type: SEARCH_BY_GENRE, payload: { data: response.data, name } });
                 })
@@ -112,7 +112,7 @@ export function createGame(payload) {
 
     return async function (dispatch) {
 
-        return axios.post(`http://localhost:3001/videogame/`, {
+        return axios.post(`/videogame/`, {
             ...payload
         })
         .then((response) => {console.log(response)
@@ -126,7 +126,7 @@ export function updateGame(payload, id) {
 
     return async function (dispatch) {
 
-        return axios.put(`http://localhost:3001/videogame/${id}`, {
+        return axios.put(`/videogame/${id}`, {
             ...payload
         })
             .then((response) => {
@@ -153,7 +153,7 @@ export function getGames(payload) {
 
     if (!payload.data) {
         return async function (dispatch) {
-            return axios.get('http://localhost:3001/videogames')
+            return axios.get('/videogames')
                 .then((response) => {
                     dispatch({ type: GET_GAMES, payload: response.data });
                 })
@@ -161,7 +161,7 @@ export function getGames(payload) {
         }
     }
     return async function (dispatch) {
-        return axios.get(`http://localhost:3001/videogames/?name=${payload.data}`)
+        return axios.get(`/videogames/?name=${payload.data}`)
             .then((response) => {
                 dispatch({ type: GET_GAMES, payload: response.data });
             })
@@ -172,7 +172,7 @@ export function getGame(m) {
     if (m) {
         return async function (dispatch) {
 
-            return axios.get(`http://localhost:3001/videogame/${m}`)
+            return axios.get(`/videogame/${m}`)
                 .then((response) => {
                     dispatch({ type: GET_GAME, payload: response.data.element });
 
@@ -187,13 +187,13 @@ export function getGame(m) {
 export function saveGame(id) {
     return async function (dispatch) {
 
-        return axios.get(`http://localhost:3001/videogame/${id}`)
+        return axios.get(`/videogame/${id}`)
             .then((response) => {
                 const { name, description, released, image, rating, platforms, genres } = response.data.element
-                axios.post('http://localhost:3001/videogame', {
+                axios.post('/videogame', {
                     name, description, released, image, rating, platforms, genres
                 }).then(response => {
-                    axios.get(`http://localhost:3001/videogame/${response.data.id}`)
+                    axios.get(`/videogame/${response.data.id}`)
                         .then((response) => {
 
                             const { id, name, image,score } = response.data.element
@@ -207,7 +207,7 @@ export function saveGame(id) {
 
 export function deleteGame(id, name) {
     return async function (dispatch) {
-        return axios.delete(`http://localhost:3001/videogame/${id}`)
+        return axios.delete(`/videogame/${id}`)
             .then((e) => {
                 dispatch({ type: REMOVE_GAME, payload: {id:e.data.gameDeleted,name} })
             }
