@@ -30,7 +30,7 @@ function Navbar(props) {
                 color: "red"
               }}>
                 <span className={navbarStyle.home}>
-                    Inicio
+                    Home
                 </span>
             </NavLink>
             <NavLink to='/Videogame/myGames' 
@@ -40,7 +40,7 @@ function Navbar(props) {
               }}
             >
                 <span className={navbarStyle.games}>
-                    Mis Juegos
+                    My Games
                 </span>
             </NavLink>
             <NavLink onClick={()=> dispatch(getGenres())}
@@ -50,7 +50,7 @@ function Navbar(props) {
               }}
             to='/Genres' >
                 <span className={navbarStyle.genres}>
-                    Géneros
+                    Genres
                 </span>
             </NavLink>
             <NavLink onClick={()=> dispatch(getPlatforms())}
@@ -60,15 +60,15 @@ function Navbar(props) {
               }}
              to='/Platforms'>
                 <span className={navbarStyle.platforms}>
-                    Plataformas
+                    Platforms
                 </span>
             </NavLink>
             <Route exact path='/videogames'>
                 <span className={navbarStyle.searchBar}>
                     < SearchBar 
                         handleSubmit={handleSubmit}
-                        searchButton={'Buscar'} 
-                        placeHolder={'...Buscar Juegos '}
+                        searchButton={'Search'} 
+                        placeHolder={'...Search Games '}
                     />
                 </span>
             </Route>

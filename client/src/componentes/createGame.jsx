@@ -23,7 +23,7 @@ function CreateGame(props){
     const [alert, setAlert]=useState({
         name:true,
         image:false,
-        description:'Debe tener una descripción',
+        description:'...Must have a description',
         platforms:true,
         genres:true,
         redFlag:false,
@@ -143,23 +143,23 @@ function CreateGame(props){
     return (
             <div className={createStyle.container}>
             {alert.redFlag&&<div className={createStyle.redFlag}>
-                Debe llenar todos los campos correctamente
+                You must fill in all the fields correctly
             </div>}
             {alert.greenFlag&&<div className={createStyle.greenFlag}>
-                Se ha creado un nuevo juego en la base de datos '
+                A new Game has been added in db 
             </div>}
-                <div className={createStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener un nombre</div>
+                <div className={createStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...must have a name</div>
                 <div>
-                    <span>Nombre: </span>
+                    <span>Name: </span>
                     <input className={createStyle.input}
                         onChange={e=>handleChange(e)}
                         value={content.name}
                         name='name'
                         type="text"  placeholder='...nombre'/>
                 </div>
-                <div className={createStyle.alert} style={alert.image?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener una imagen</div>
+                <div className={createStyle.alert} style={alert.image?{visibility:'visible'}:{visibility:'hidden'}}>...must have a image</div>
                 <div>
-                    <span>Imagen: </span>
+                    <span>Image: </span>
                     <input className={createStyle.input}
                         value={content.image}
                         name='image'
@@ -169,7 +169,7 @@ function CreateGame(props){
                 </div>
                 <div className={createStyle.alert} style={alert.description!=='hidden'?{visibility:'visible'}:{visibility:'hidden'}}>{alert.description} </div>
                 <div className={createStyle.description}>
-                    <span className={createStyle.tagDescription} >Descripción: </span>   
+                    <span className={createStyle.tagDescription} >Description: </span>   
                     <textarea className={createStyle.textarea} name="description" id="" cols="30" value={content.description} rows="10" placeholder='...descripción'
                         onChange={(e)=>handleChange(e)}
                         >
@@ -177,7 +177,7 @@ function CreateGame(props){
                 </div>
                 <div className={createStyle.inputPlatformsGenres}>                
                     <span  className={createStyle.inputPlatforms} >
-                        <span>Plataformas: </span>
+                        <span>Plataforms: </span>
                         <button   onClick={()=>inputPlatforms(true)}>
                             +
                         </button>
@@ -194,7 +194,7 @@ function CreateGame(props){
                                  value={e.name} 
                                  onChange={(e)=>handlePlatformsChange(e)}>
                                 
-                                    <option disabled value=""  >__Plataformas
+                                    <option disabled value=""  >__Platforms
                                     </option>
                                     {[...props.platforms&&props.platforms.map((platforms,id)=>{
                                         return(<option key={id}
@@ -214,10 +214,10 @@ function CreateGame(props){
                             </div>
                         )   
                         })}
-                        <span className={createStyle.alert} style={alert.platforms?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos una plataformas</span>
+                        <span className={createStyle.alert} style={alert.platforms?{visibility:'visible'}:{visibility:'hidden'}}>...must have a least one platform</span>
                     </span>
                     <span className={createStyle.inputGenres} >                    
-                        <span>Géneros: </span>
+                        <span>Genres: </span>
                         <button   onClick={()=>inputGenres(true)}>
                             +
                         </button>
@@ -234,7 +234,7 @@ function CreateGame(props){
                                      value={e.name} 
                                      onChange={(e)=>handleGenresChange(e)}>
                                     
-                                        <option disabled value=""  >__Géneros
+                                        <option disabled value=""  >__Genres
                                         </option>
                                         {[...props.genres&&props.genres.map((genres,id)=>{
                                             return(<option key={id}
@@ -251,10 +251,10 @@ function CreateGame(props){
                             )   
                         })}
                         
-                         <span className={createStyle.alert} style={alert.genres?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos un género</span> 
+                         <span className={createStyle.alert} style={alert.genres?{visibility:'visible'}:{visibility:'hidden'}}>...must have at least one gender</span> 
                     </span>
                     <div className={createStyle.released}>
-                        <label htmlFor="">lanzamiento:</label>
+                        <label htmlFor="">Released:</label>
                         <div>
                             <input 
                             onChange={e=>handleChangeReleased(e)}
@@ -284,7 +284,7 @@ function CreateGame(props){
                     <button className={createStyle.submit} 
                         onClick={()=>handleOnClick()}
                         >
-                        Crear
+                        Create
                     </button>
                 </span>
 

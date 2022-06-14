@@ -29,14 +29,14 @@ function Landing(props){
                   </img>
                   <div className={LandingStyle.lista}>
                       <ul>
-                          <li>Encuentra más de 500.000 juegos</li>
-                          <li>Elabora tu propio catálogo de juegos</li>
-                          <li>Crea tus propios juegos</li>
+                          <li>Find more than 500,000 games</li>
+                          <li>Build your own game catalog</li>
+                          <li>Create your own games</li>
                       </ul>
                   </div>
                   <span onClick={()=>toggle()}
                       className={LandingStyle.button}
-                  >comenzar
+                  >Let's go
                   </span>
               </div>   
           </div>  

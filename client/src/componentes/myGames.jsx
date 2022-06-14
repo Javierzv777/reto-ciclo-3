@@ -14,29 +14,29 @@ function MyGames(props) {
   let flag=false;
   flag=((props.saved.length^props.flag)&&props.games.length) 
   const [qualify,setQualify]=useState({flag:false, rating:0, id:null})
-  const[sort,setSort]=useState('ordenar por rating')
-  const [reverse,setReverse]=useState('Descendente')
+  const[sort,setSort]=useState('Order by rating')
+  const [reverse,setReverse]=useState('Downward')
  
   const sortBy=()=>{
-   if(sort==='ordenar por rating'){
+   if(sort==='Order by rating'){
      props.sortByRating()
-     setSort('ordenar por nombre')
-     setReverse('Descendente')
+     setSort('Order by name')
+     setReverse('Downward')
    }
    else{
      props.sortByName()
-     setSort('ordenar por rating')
-     setReverse('Descendente')
+     setSort('Order by rating')
+     setReverse('Downward')
    }
  }
  const sortReverse=()=>{
-  if(reverse==='Ascendente'){
+  if(reverse==='Upward'){
     props.reverseFn()
-    setReverse('Descendente')
+    setReverse('Downward')
   }
   else{
     props.reverseFn()
-    setReverse('Ascendente')
+    setReverse('Upward')
   }
 }
  let history=useHistory()
@@ -100,8 +100,8 @@ function MyGames(props) {
           <span className={myGamesStyle.searchBar}>
             <SearchBar
                 handleSubmit={handleSubmit}
-                searchButton={'Buscar'} 
-                placeHolder={'...Buscar Juegos en db'}
+                searchButton={'Search'} 
+                placeHolder={'...Search game in db'}
             />
          </span>
 
@@ -126,11 +126,11 @@ function MyGames(props) {
                   <div className={myGamesStyle.buttonInputRadio}>
                       <button onClick={()=>handleQualifyCancel()} 
                       >
-                        Cancelar
+                        Cancel
                       </button>
                       <button onClick={()=> handleQualifyUpdate()}
                       >
-                        Calificar
+                        Qualify
                       </button>
                     </div>
 
@@ -173,11 +173,11 @@ function MyGames(props) {
                           {e.id&&e.id.length&&(
                           <div className={myGamesStyle.button}>
                             <button onClick={()=> handleUpdate(e.id,e.name)}>
-                              Editar
+                              Edit
                             </button>
                             <button onClick={()=>handleQualify(e.id)} 
                             >
-                              calificar
+                              Qualify
                             </button>
                             <button onClick={()=> handleDelete(e.id,e.name)}
                             >

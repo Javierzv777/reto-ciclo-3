@@ -17,7 +17,7 @@ function Platforms(props) {
    
     return (
         <div >
-            {props.platforms&&<div className={PlatformsStyle.container}>Buscar juegos por plataformas</div>}
+            {props.platforms&&<div className={PlatformsStyle.container}>Search saved games by platforms</div>}
             
            {
              props.platforms&&props.platforms.map((e)=>{    

@@ -31,7 +31,7 @@ class ShowGame extends React.Component {
                             </img>
                             <span>
                                 <span className={gameStyle.rating}>
-                                    Lanzamiento: {this.props.game.released}
+                                    Released: {this.props.game.released}
                                 </span>
                                 <div>
                                     Rating: {this.props.game.rating}
@@ -43,7 +43,7 @@ class ShowGame extends React.Component {
                             </span>
                             <div>
                                 <span className={gameStyle.platforms}>
-                                    <h5>Plataformas</h5>
+                                    <h5>Plataforms</h5>
                                     <ul>
                                         {this.props.game.platforms.map((e,i)=>{
                                             return(
@@ -54,7 +54,7 @@ class ShowGame extends React.Component {
                                     </ul>
                                 </span>
                                 <span className={gameStyle.genres}>
-                                    <h5>Géneros</h5>
+                                    <h5>Genres</h5>
                                         <ul>                                            
                                             {this.props.game.genres.map((e,i)=>{
                                                 return(
@@ -67,7 +67,7 @@ class ShowGame extends React.Component {
                             </div>
                         </span>
                         <button className={gameStyle.buttonBack} onClick={()=>this.props.history.goBack()}>
-                            atras
+                            Back
                         </button>
                     </div>
                    

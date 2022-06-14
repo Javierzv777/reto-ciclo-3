@@ -16,7 +16,7 @@ function App() {
     <div className="container">  
       <div className="App">
         <Landing/>
-        <h1 className='App-header'>Henry Videogames</h1>
+        <h1 className='App-header'>Videogames Store App</h1>
         <Navbar/>
        
             <Switch>

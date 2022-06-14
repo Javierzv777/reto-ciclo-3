@@ -28,7 +28,7 @@ function NavbarGames(props){
                         fontSize:"x-large"
                     }}>
                         <span className={navGamesStyle.link}>
-                            Crear Juego
+                            Add Game
                         </span>
                     </NavLink>
                     <NavLink

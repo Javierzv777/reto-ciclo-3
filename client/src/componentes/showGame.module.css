@@ -4,10 +4,11 @@
     background-color: #009579 ;
 }
 .platforms{
-    display: inline-block
+    display: inline-block;
+    padding-right: 5rem;
 }
 .genres{
-    padding-left: 5rem;
+    
     vertical-align:top ;
     top:0;
     display: inline-block;   

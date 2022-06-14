@@ -20,7 +20,7 @@ function Genres(props) {
    
     return (
         <div >
-            {props.genres&&<div className={GenresStyle.container}>Buscar Juegos por género</div>}
+            {props.genres&&<div className={GenresStyle.container}>Search saved games by genres</div>}
             
            {
              props.genres&&props.genres.map((e)=>{

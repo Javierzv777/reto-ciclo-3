@@ -116,25 +116,25 @@ function Update(props){
         <div>
 
             {alert.redFlag&&<div className={updateStyle.redFlag}>
-                Debe llenar todos los campos correctamente
+                You must fill in all the fields correctly
             </div>}
             {alert.greenFlag&&<div className={updateStyle.greenFlag}>
-                Se ha producido una actualización en '{props.game.name}'
+                An update has occurred in '{props.game.name}'
             </div>}
             { props.game && ( <div className={updateStyle.container}>
-                <div className={updateStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener un nombre</div>
+                <div className={updateStyle.alert} style={alert.name?{visibility:'visible'}:{visibility:'hidden'}}>...should have a name</div>
                     
                     <div>
-                        <span>Nombre: </span>
+                        <span>Name: </span>
                         <input className={updateStyle.input}
                             onChange={e=>handleChange(e)}
                             value={props.game.name}
                             name='name'
                             type="text"  placeholder='...nombre'/>
                     </div>
-                    <div className={updateStyle.alert} style={alert.image?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener una imagen</div>
+                    <div className={updateStyle.alert} style={alert.image?{visibility:'visible'}:{visibility:'hidden'}}>...should have a image</div>
                     <div>
-                        <span>Imagen: </span>
+                        <span>Image: </span>
                         <input className={updateStyle.input}
                             value={props.game.image}
                             name='image'
@@ -144,14 +144,14 @@ function Update(props){
                     </div>
                     <div className={updateStyle.alert} style={alert.description!=='hidden'?{visibility:'visible'}:{visibility:'hidden'}}>{alert.description} </div>
                     <div className={updateStyle.description}>
-                        <span className={updateStyle.tagDescription} >Descripción: </span>   
+                        <span className={updateStyle.tagDescription} >Description </span>   
                         <textarea className={updateStyle.textarea} name="description" id="" cols="30" value={props.game&&props.game.description&&props.game.description.replace(/<[^>]+>/g, '')} rows="10" placeholder='...descripción'
                            onChange={(e)=>handleChange(e)}
                             >
                         </textarea>
                     </div>
                     <span  className={updateStyle.inputPlatforms} >
-                        <span>Plataformas: </span>
+                        <span>Plataforms: </span>
                         <button   onClick={()=>inputPlatforms(true)}>
                             +
                         </button>
@@ -170,7 +170,7 @@ function Update(props){
                                  value={e.name} 
                                  onChange={(e)=>handlePlatformsChange(e)}>
                                 
-                                    <option disabled value=""  >__Plataformas
+                                    <option disabled value=""  >__Platforms
                                     </option>
                                     {[...props.platforms&&props.platforms.map((platforms,id)=>{
                                         return(<option key={id}
@@ -190,10 +190,10 @@ function Update(props){
                                 </div>
                             )   
                         })}
-                        <span className={updateStyle.alert} style={alert.platforms?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos una plataformas</span>
+                        <span className={updateStyle.alert} style={alert.platforms?{visibility:'visible'}:{visibility:'hidden'}}>...Should have a platform</span>
                     </span>
                     <span className={updateStyle.inputGenres} >
-                        <span>Géneros: </span>
+                        <span>Generes: </span>
                         <button   onClick={()=>inputGenres(true)}>
                             +
                         </button>
@@ -211,7 +211,7 @@ function Update(props){
                                      value={e.name} 
                                      onChange={(e)=>handleGenresChange(e)}>
                                     
-                                        <option disabled value=""  >__Géneros
+                                        <option disabled value=""  >__Genres
                                         </option>
                                         {[...props.genres&&props.genres.map((genres,id)=>{
                                             return(<option key={id}
@@ -229,7 +229,7 @@ function Update(props){
                                 </div>
                             )   
                         })}
-                        <span className={updateStyle.alert} style={alert.genres?{visibility:'visible'}:{visibility:'hidden'}}>...debe tener al menos un género</span> 
+                        <span className={updateStyle.alert} style={alert.genres?{visibility:'visible'}:{visibility:'hidden'}}>...should have a genre</span> 
                     </span>
                     <span className={updateStyle.submit} >
                         <div>
@@ -237,7 +237,7 @@ function Update(props){
                                  className={updateStyle.button}
                                 onClick={()=>handleUpdate()}
                                 >
-                                Actualizar
+                                Update
                             </button>
                         </div>
                         <div>
@@ -245,7 +245,7 @@ function Update(props){
                                 className={updateStyle.button}
                                 onClick={()=>handleCancel()}
                                 >
-                                Cancelar
+                                Cancel
                             </button>
                         </div>
                     </span>

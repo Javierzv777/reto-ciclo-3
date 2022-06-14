@@ -14,9 +14,9 @@ function ShowGames(props) {
 
   let history=useHistory()
 
-  const[sort,setSort]=useState('ordenar por rating')
-  const [reverse,setReverse]=useState('Descendente')
-  const [gamesToShow,setGamesToShow]=useState({flag:'all', message:'mostrando todos los juegos'})
+  const[sort,setSort]=useState('Order by rating')
+  const [reverse,setReverse]=useState('Downward')
+  const [gamesToShow,setGamesToShow]=useState({flag:'all', message:'Showing all games'})
 
  
 
@@ -72,15 +72,15 @@ function ShowGames(props) {
   }
   const changeBottonGamesToShow=()=>{
     if(gamesToShow.flag==='all'){
-      setGamesToShow({flag:'api',message:'mostrando juegos de la apiweb'})
+      setGamesToShow({flag:'api',message:'Showing api games'})
       return
     }
     if(gamesToShow.flag==='api'){
-      setGamesToShow({flag:'db',message:'mostrando juegos guardados'})
+      setGamesToShow({flag:'db',message:'Showing saved games'})
       return
     }
     if(gamesToShow.flag==='db'){
-      setGamesToShow({flag:'all',message:'mostrando todos los juegos'})
+      setGamesToShow({flag:'all',message:'Showing all games'})
       return
     }
   }
@@ -101,29 +101,29 @@ function ShowGames(props) {
     return false
   }
   const sortBy=()=>{
-   if(sort==='ordenar por rating'){
+   if(sort==='Order by rating'){
      props.sortByRating()
      handleOnChangePages('1')
-     setSort('ordenar por nombre')
-     setReverse('Descendente')
+     setSort('Order by name')
+     setReverse('Downward')
    }
    else{
      props.sortByName()
      handleOnChangePages('1')
-     setSort('ordenar por rating')
-     setReverse('Descendente')
+     setSort('Order by rating')
+     setReverse('Downward')
    }
  }
  const sortReverse=()=>{
-  if(reverse==='Ascendente'){
+  if(reverse==='Upward'){
     props.reverseFn()
     handleOnChangePages('1')
-    setReverse('Descendente')
+    setReverse('Downward')
   }
   else{
     props.reverseFn()
     handleOnChangePages('1')
-    setReverse('Ascendente')
+    setReverse('Upward')
   }
   }
   const handleOnClick=(id)=>{
@@ -154,7 +154,7 @@ function ShowGames(props) {
                 onClick={()=>changeBottonGamesToShow()}
                 >{gamesToShow.message}</button>
               </div>)}
-            {props.showGames.length>0&&(<div className={GamesStyle.title}>Lista de Videojuegos</div>)}
+            {props.showGames.length>0&&(<div className={GamesStyle.title}>Videogames List</div>)}
 
             { props.showGames.length>0&&<div 
               className={GamesStyle.searchBarPagesFirst}>
@@ -218,14 +218,14 @@ function ShowGames(props) {
                         className={GamesStyle.image} src={e.image} alt={e.name}>
                         </img>   
                       </div>
-                      <div>
+                      <div className={GamesStyle.buttonsToShow}>
                         {e.id&&e.id.length&&(<button onClick={()=> handleDelete(e.id,e.name)}
                         className={GamesStyle.buttonDelete}>
-                          Eliminar
+                          Delete Game
                         </button>)}
                         {e.id&&!e.id.length&&(<button onClick={()=> handleSave(e.id,i)}
                         className={GamesStyle.button}>
-                          Guardar
+                          Save Game
                         </button>)}
                       </div> 
                   </div>

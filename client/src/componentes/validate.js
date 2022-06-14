@@ -1,10 +1,10 @@
 export  function validate(input,arg) {
 
   if(arg==='description'&&!input[arg]){
-    return '...Debe tener una descripción';
+    return '...Must have a description';
   }
   if(arg==='description'&&input[arg].length<200){
-    return '...La descripción debe tener al menos 200 caracteres';
+    return '...Must have 200 characters at least';
   }
   if(arg==='description'&&input[arg].length>200){
     return 'hidden';
