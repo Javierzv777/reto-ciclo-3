@@ -148,7 +148,7 @@ function MyGames(props) {
                 >{reverse}</button></div>)}
               {props.platform&&(<div className={myGamesStyle.title}>{props.platform}</div>)}
               {props.genre&&(<div className={myGamesStyle.title}>{props.genre}</div>)}
-              {!props.genre&&!props.platform&&flag!==0&&(<div className={myGamesStyle.title}>Lista de Videojuegos</div>)}
+              {!props.genre&&!props.platform&&flag!==0&&(<div className={myGamesStyle.title}>Videogames List</div>)}
               <div className={myGamesStyle.containerCards}>
               {props.games.map((e,i)=>{
                   return(e.id.length) &&(
