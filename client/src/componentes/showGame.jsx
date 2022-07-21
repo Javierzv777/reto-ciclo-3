@@ -21,6 +21,7 @@ class ShowGame extends React.Component {
                 
   
                 <div> 
+                    {this.props.loading===true&&(<div className={gameStyle.loading}></div>)}
                     { this.props.game&&this.props.game.image&& <div>
                         <div className={gameStyle.title}>{this.props.game.name}
                         </div>
@@ -86,6 +87,7 @@ class ShowGame extends React.Component {
 export function mapStateToProps(state) {
     return {
       game: state.game,
+      loading: state.loadingFlag,
     };
   }
   

@@ -171,7 +171,7 @@ export function getGames(payload) {
 export function getGame(m) {
     if (m) {
         return async function (dispatch) {
-
+            dispatch({type:"START_LOADING"})
             return axios.get(`/videogame/${m}`)
                 .then((response) => {
                     dispatch({ type: GET_GAME, payload: response.data.element });

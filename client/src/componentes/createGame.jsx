@@ -206,7 +206,6 @@ function CreateGame(props){
                                     })
                                     ,(<option key={props.platforms.length}
                                        
-                                        
                                         >{e.name}
                                         </option>
                                         )]}

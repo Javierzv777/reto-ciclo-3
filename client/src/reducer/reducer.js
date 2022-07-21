@@ -47,24 +47,37 @@ export  const reducer=(state=initialState, action)=>{
             }
           })
           return {...state,games:[...state.games]}
-        case START_LOADING:return {...state, loadingFlag:true}
-        case GET_PLATFORMS: return {...state, platforms:[...action.payload]}
-        case GET_GENRES: return {...state, genres:[...action.payload]}
-        case CLEAR_LIST: return {...state, games:[]}
-        case CREATE_GAME: return {...state, games:[...state.games,...action.payload]}
+        case START_LOADING:
+          return {...state, loadingFlag:true}
+        case GET_PLATFORMS: 
+          return {...state, platforms:[...action.payload]}
+        case GET_GENRES: 
+          return {...state, genres:[...action.payload]}
+        case CLEAR_LIST: 
+          return {...state, games:[]}
+        case CREATE_GAME: 
+        return {...state, games:[...state.games,...action.payload]}
         case UPDATE_GAME: let games=state.games.filter((e) => e.id!==action.payload.id);
-        return {...state, games:[...games,action.payload]}
+          return {...state, games:[...games,action.payload]}
         case SEARCH_BY_PLATFORM: let platform=action.payload.data.map(e=>{return{...e,rating:e.score}})
           return {...state, games:[...platform], flag:action.payload.data.length?false:true,platform:action.payload.name,genre:undefined }
         case SEARCH_BY_GENRE: let genres=action.payload.data.map(e=>{return{...e,rating:e.score}}) 
           return {...state, games:[...genres], flag:action.payload.data.length?false:true,genre:action.payload.name,platform:undefined }
         case GET_GAMES: action.payload.query.sort(compare_lname); 
           return {...state, games:[...action.payload.query],savedGames:[...action.payload.list],flag:false,genre:undefined,platform:undefined, loadingFlag:false};
-        case GET_GAME: let rating= action.payload.rating.reduce((a,i)=>a+i.score,0)/action.payload.rating.length
+        case GET_GAME: 
+          let rating= action.payload.rating.reduce((a,i)=>a+i.score,0)/action.payload.rating.length
           rating=isNaN(rating)?0:rating.toFixed(2)
-          return {...state, game:{...action.payload,rating},cacheGame:{...action.payload,rating}};
-        case SET_GAME: return {...state, game:undefined}
-        case SET_GAMES:return {...state, games:[]}
+          return {
+            ...state, 
+            game:{...action.payload,rating},
+            cacheGame:{...action.payload,rating},
+            loadingFlag: false,
+          };
+        case SET_GAME: 
+          return {...state, game:undefined}
+        case SET_GAMES:
+          return {...state, games:[]}
         case ADD_GAME: 
            let savedGames={name:'',id:''}
          state.showGames.forEach((e)=>{
@@ -81,30 +94,30 @@ export  const reducer=(state=initialState, action)=>{
         })
         return {...state, showGames:[...state.showGames],games: [...state.games],savedGames:[...state.savedGames,savedGames]}
         case REMOVE_GAME: 
-        let foundGame=false
-        let nameGame=''
-        state.showGames.forEach(e=>{
-          if(e.id===action.payload.id){
-            foundGame=state.savedGames.find(element=> element.name===e.name)
-            if(foundGame){
-              e.id=foundGame.id
-              nameGame=foundGame.name
-            }else{
-             state.showGames=[...state.showGames.filter(f=>f.id!==e.id)]
-            } 
-          }
-        }) 
-        state.games.forEach(e=>{
-          if(e.id===action.payload.id){
-            foundGame=state.savedGames.find(element=> element.name===e.name)
-            if(foundGame){
-              e.id=foundGame.id
-              nameGame=foundGame.name
-            }else{
-             state.games=[...state.games.filter(f=>f.id!==e.id)]
-            } 
-          }
-        }) 
+          let foundGame=false
+          let nameGame=''
+          state.showGames.forEach(e=>{
+            if(e.id===action.payload.id){
+              foundGame=state.savedGames.find(element=> element.name===e.name)
+              if(foundGame){
+                e.id=foundGame.id
+                nameGame=foundGame.name
+              }else{
+              state.showGames=[...state.showGames.filter(f=>f.id!==e.id)]
+              } 
+            }
+          }) 
+          state.games.forEach(e=>{
+            if(e.id===action.payload.id){
+              foundGame=state.savedGames.find(element=> element.name===e.name)
+              if(foundGame){
+                e.id=foundGame.id
+                nameGame=foundGame.name
+              }else{
+              state.games=[...state.games.filter(f=>f.id!==e.id)]
+              } 
+            }
+          }) 
         return {...state,  savedGames:state.savedGames.filter(e=>e.name!==nameGame),showGames:[...state.showGames],games:[...state.games] }
       
         case UPDATE_DETAILS: return {...state, game: {...action.payload}}
